@@ -24,7 +24,7 @@ https://miro.com/app/board/uXjVOFF2cpg=/?utm_source=notification&utm_medium=emai
 
 ## PHASE 2
 
-- [ ] Deploy to home server
+- [ ] Deploy to home server by installing python, virtual enviroment, flask and run flask on the server
 
 
 ## PHASE 3
