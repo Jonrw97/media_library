@@ -20,11 +20,12 @@ https://miro.com/app/board/uXjVOFF2cpg=/?utm_source=notification&utm_medium=emai
 - [ ] edit actor and delete actor
 - [ ] dont install passwords in plain text
 - [ ] Flask tests,  add movie, render libary page, edit view
-
+- [ ] documents
 
 ## PHASE 2
 
 - [ ] Deploy to home server by installing python, virtual enviroment, flask and run flask on the server
+- [ ] documents
 
 
 ## PHASE 3
@@ -33,23 +34,27 @@ https://miro.com/app/board/uXjVOFF2cpg=/?utm_source=notification&utm_medium=emai
 - [ ] implement python modles for entities (movie, actor, user)
 - [ ] Use Flask forms with models 
 - [ ] Introduce Flask form validation
+- [ ] documents
 
 
 ## PHASE 4
 
 - [ ] Change the relationship between actors and movies so that actors can be in multiple movies
 - [ ] add and actors management module to the UI
+- [ ] documents
 
 
 ## PHASE 5
 
 - [ ] Use an ORM
+- [ ] documents
 
 
 ## PHASE 6
 
 - [ ] HTML CSS design using flexbox layout
 - [ ] add some javasript interactivity TBD
+- [ ] documents
 
 
 ## PHASE X
@@ -59,3 +64,4 @@ https://miro.com/app/board/uXjVOFF2cpg=/?utm_source=notification&utm_medium=emai
 - [ ] Auto find new files in the sync folder
 - [ ] look up file meta data on api
 - [ ] upload the cover image file
+- [ ] documents
