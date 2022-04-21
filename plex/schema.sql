@@ -7,11 +7,16 @@ CREATE TABLE user (
     password TEXT NOT NULL
 );
 
-CREATE TABLE post (
+CREATE TABLE movies (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    author_id INTEGER NOT NULL,
-    created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    title TEXT NOT NULL,
-    body TEXT NOT NULL,
-    FOREIGN KEY (author_id) REFERENCES user (id)
+    movie_title VARCHAR(255) NOT NULL,
+    year INTEGER,
+    director VARCHAR(255),
+    actor VARCHAR(255),
 );
+
+CREATE TABLE actors (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    actor_name VARCHAR(255) NOT NULL,
+
+); 
