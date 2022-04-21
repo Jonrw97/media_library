@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS user;
-DROP TABLE IF EXISTS post;
+DROP TABLE IF EXISTS movies;
+DROP TABLE IF EXISTS actors;
 
 CREATE TABLE user (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -9,14 +10,13 @@ CREATE TABLE user (
 
 CREATE TABLE movies (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    movie_title VARCHAR(255) NOT NULL,
+    movie_title TEXT NOT NULL,
     year INTEGER,
-    director VARCHAR(255),
-    actor VARCHAR(255),
+    director TEXT,
+    actor TEXT,
 );
 
 CREATE TABLE actors (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    actor_name VARCHAR(255) NOT NULL,
-
+    actor_name TEXT NOT NULL,
 ); 
