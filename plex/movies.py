@@ -11,4 +11,13 @@ bp = Blueprint('movies', __name__, url_prefix='/movies')
 def library():
 
     db = get_db()
+    cur = db.cursor()
+    media = cur.execute("SELECT * FROM movies").fetchall()
+    
+    for row in media:
+        print("<<<<<<media", row[0])
+        print(row[1])
+        print(row[2])
+
+
     return render_template('movies/library.html')

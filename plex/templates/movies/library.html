@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<p>Media list</p>
+
+<table>
+    {% for row in media %}
+        <tr>
+            <th>id</th>
+            <th>Title</th>
+            <th>year</th>
+            <th>director</th>
+            <th>actor</th>
+        </tr>
+        <tr>
+            <td> {{ row[0] }}</td>
+        </tr>
+        <tr>
+            <td> {{ row[1] }}</td>
+        </tr>
+        <tr>
+            <td> {{ row[2] }}</td>
+        </tr>
+
+    {% endfor %}
+</table>
+
+{% endblock %} 

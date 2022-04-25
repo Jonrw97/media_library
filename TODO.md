@@ -6,7 +6,7 @@ Use Flask and simple direct dbm libary to persist the data
 https://miro.com/app/board/uXjVOFF2cpg=/?utm_source=notification&utm_medium=email&utm_campaign=daily-updates&utm_content=go-to-board
 
 - [x] Login Screen
-- [ ] Create Movies table, Actors table, Users table
+- [x] Create Movies table, Actors table, Users table
 - [ ] Test data script
 - [ ] Main Libary View
 - [ ] Detail view
