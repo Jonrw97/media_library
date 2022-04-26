@@ -18,6 +18,9 @@ def library():
         print("<<<<<<media", row[0])
         print(row[1])
         print(row[2])
+        print(row[3])
+        print(row[4])
+        print("details")
 
 
     return render_template('movies/library.html')
