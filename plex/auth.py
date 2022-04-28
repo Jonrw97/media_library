@@ -55,7 +55,7 @@ def login():
         if error is None:
             session.clear()
             session['user_id'] = user['id']
-            return redirect(url_for('movies.library'))
+            return redirect(url_for('library'))
 
         flash(error)
 
@@ -85,4 +85,4 @@ def login_required(view):
 @bp.route('/logout')
 def logout():
     session.clear()
-    return redirect(url_for('auth.login'))
+    return redirect(url_for('library'))

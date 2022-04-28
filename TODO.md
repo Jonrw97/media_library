@@ -7,8 +7,8 @@ https://miro.com/app/board/uXjVOFF2cpg=/?utm_source=notification&utm_medium=emai
 
 - [x] Login Screen
 - [x] Create Movies table, Actors table, Users table
-- [ ] Test data script
-- [ ] Main Libary View
+- [x] Test data script
+- [x] Main Libary View
 - [ ] Detail view
 - [ ] Edit view - add (without actors)
 - [ ] Edit View - edit

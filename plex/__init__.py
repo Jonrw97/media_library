@@ -18,9 +18,9 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    @app.route('/')
+    @app.route('/hello')
     def hello():
-        return redirect(url_for('auth.register'))
+        return 'Hello, World!'
 
     from . import db
     db.init_app(app)
@@ -30,5 +30,6 @@ def create_app(test_config=None):
 
     from . import movies
     app.register_blueprint(movies.bp)
+    app.add_url_rule('/', endpoint='library')
 
     return app

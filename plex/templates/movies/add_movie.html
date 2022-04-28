@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Add Movie</h2>
+
+<form method="post">
+    <label for="movie_title">Movie Title</label>
+    <input name="movie_title" id="movie_title" required>
+    <label for="year">Year</label>
+    <input type="year" name="year" id="year">
+    <label for="director">Director</label>
+    <input type="director" name="director" id="director">
+    <label for="actor">Actor</label>
+    <input type="actor" name="actor" id="actor">
+    <input type="submit" value="Add Movie">
+  </form> 
+
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Details View</h2>
+
+<p>{{ 'movie_title' }}</p>
+<p>{{ 'year' }}</p>
+<p>{{ 'director' }}</p>
+<p>{{ 'actor' }}</p>
+<p>play</p>
+<P>edit</P>
+<a href="{{ url_for('movies.library') }}">Library</a>
+
+{% endblock %}
