@@ -41,8 +41,9 @@ def test_login(client, auth):
 
 @pytest.mark.parametrize(('username', 'password', 'message'), (
     ('a', 'test', b'Incorrect username.'),
-    ('test', 'a', b'Incorrect password.'),
+   ('test', 'a', b'Incorrect password'),
 ))
+
 def test_login_validate_input(auth, username, password, message):
     response = auth.login(username, password)
     assert message in response.data
@@ -53,3 +54,12 @@ def test_logout(client, auth):
     with client:
         auth.logout()
         assert 'user_id' not in session
+
+#@pytest.mark.parametrize(('username', 'password', 'message'), (
+  #  ('a', 'test', b'Incorrect username.')))
+
+def test_login_1(auth):
+    response = auth.login('test', 'test')
+    assert response.status_code == 302
+#check headers for url to redirect to
+#if login succeds check that redirect to correct url

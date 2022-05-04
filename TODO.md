@@ -9,8 +9,8 @@ https://miro.com/app/board/uXjVOFF2cpg=/?utm_source=notification&utm_medium=emai
 - [x] Create Movies table, Actors table, Users table
 - [x] Test data script
 - [x] Main Libary View
-- [ ] Detail view
-- [ ] Edit view - add (without actors)
+- [x] Detail view
+- [x] Edit view - add (without actors)
 - [ ] Edit View - edit
 - [ ] Sync Folder File Lister
 - [ ] Video Player View (HTML5 video player)

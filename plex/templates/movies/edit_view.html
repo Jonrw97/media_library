@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Edit View</h2>
+
+<form method="post">
+    <label for="movie_title">Movie Title</label>
+    <input name="movie_title" id="movie_title" value={{details[0]}} required>
+    <label for="year">Year</label>
+    <input type="year" name="year" id="year" value={{details[1]}}>
+    <label for="director">Director</label>
+    <input type="director" name="director" id="director" value={{details[2]}}>
+    <label for="actor">Actor</label>
+    <input type="actor" name="actor" id="actor" value={{details[3]}}>
+    <input type="submit" value="Update Movie">
+  </form> 
+
+<a href="{{ url_for('movies.library') }}">Library</a>
+
+{% endblock %}
