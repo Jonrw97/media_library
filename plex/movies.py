@@ -56,10 +56,14 @@ def add_movie():
 @login_required
 
 def details_view():
-    db = get_db()
-    movie_id = request.args['id']
-    details = db.execute("SELECT id, movie_title, year, director, actor FROM movies where id = ?", movie_id).fetchone()
-    return render_template('movies/details_view.html', details = details)
+    if request.method == 'GET':
+        db = get_db()
+        movie_id = request.args['id']
+        details = db.execute("SELECT id, movie_title, year, director, actor FROM movies where id = ?", movie_id).fetchone()
+        return render_template('movies/details_view.html', details = details)
+
+    if request.method == 'POST':
+        return render_template('movies/details_view.html', details = details)
 
 @bp.route('/edit_view')
 @login_required
@@ -76,17 +80,18 @@ def edit_view():
         year = request.form['year']
         director = request.form['director']
         actor = request.form['actor']
-        #db = get_db()
-        #movie_id = request.args['id']
-        #details = db.execute("SELECT movie_title, year, director, actor FROM movies where id = ?", movie_id).fetchone()
+
         try:
             edit = db.execute(
-                "INSERT OR REPLACE INTO movies (movie_title, year, director, actor) VALUES(?,?,?,?)",
+                "UPDATE movies SET movie_title =  year, director, actor) VALUES(?,?,?,?)",
                 (movie_title, year, director, actor))
         except:
             flash("update failed")
+        else:
+            flash("update succseful")
+        finally:
             return redirect(url_for('library'))
-        flash("update succseful")
+
     return render_template('movies/edit_view.html', details = details)
 
 
