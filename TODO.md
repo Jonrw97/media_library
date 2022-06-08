@@ -14,12 +14,12 @@ https://miro.com/app/board/uXjVOFF2cpg=/?utm_source=notification&utm_medium=emai
 - [ ] Edit View - edit
 - [ ] Sync Folder File Lister
 - [ ] Video Player View (HTML5 video player)
-- [ ] Make Sure Every Page Checks the user is logged in 
+- [x] Make Sure Every Page Checks the user is logged in 
 - [ ] Base layout
-- [ ] Use 2 Flask Blueprints
+- [x] Use 2 Flask Blueprints
 - [ ] Edit view - add actor
 - [ ] edit actor and delete actor
-- [ ] dont install passwords in plain text
+- [x] dont install passwords in plain text
 - [ ] Flask tests,  add movie, render libary page, edit view
 - [ ] documents
 
