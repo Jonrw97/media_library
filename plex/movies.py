@@ -83,9 +83,9 @@ def edit_view():
 
         try:
             edit = db.execute(
-                "UPDATE movies SET movie_title =  year, director, actor) VALUES(?,?,?,?)",
+                "UPDATE movies SET movie_title=?, year=?, director=?, actor=? WHERE id=?",
                 (movie_title, year, director, actor))
-        except:
+        except :
             flash("update failed")
         else:
             flash("update succseful")
