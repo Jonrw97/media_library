@@ -28,6 +28,7 @@ def add_movie():
         year = request.form['year']
         director = request.form['director']
         actor = request.form['actor']
+        file_name = request.form['myfile']
         db = get_db()
         error = None
 
@@ -39,8 +40,8 @@ def add_movie():
             if error is None:
                 try:
                     db.execute(
-                        "INSERT INTO movies (movie_title, year, director, actor) VALUES (?, ?, ?, ?)",
-                        (movie_title, year, director, actor),
+                        "INSERT INTO movies (movie_title, year, director, actor, file_name) VALUES (?, ?, ?, ?, ?)",
+                        (movie_title, year, director, actor, file_name),
                     )
                     db.commit()
                 except db.IntegrityError:
@@ -72,7 +73,7 @@ def edit_view():
     db = get_db()  
     if request.method == 'GET':
         movie_id = request.args['id']
-        details = db.execute("SELECT id, movie_title, year, director, actor FROM movies where id = ?", movie_id).fetchone()
+        details = db.execute("SELECT id, movie_title, year, director, actor, file_name FROM movies WHERE id = ?", movie_id).fetchone()
 
     
     elif request.method == 'POST':
@@ -81,16 +82,15 @@ def edit_view():
         year = request.form['year']
         director = request.form['director']
         actor = request.form['actor']
+        file_name = request.form['myfile']
+        print(file_name)
 
         try:
             edit = db.execute(
-                "UPDATE movies SET movie_title=?, year=?, director=?, actor=? WHERE id=?",
-                (movie_title, year, director, actor, movie_id))
+                "UPDATE movies SET movie_title=?, year=?, director=?, actor=?, file_name=? WHERE id=?",
+                (movie_title, year, director, actor, file_name, movie_id))
             db.commit()
-            print(edit)
-            print(movie_id)
-        except Exception as err :
-            print(err)
+        except Exception:
             flash("update failed")
         else:
             flash("update succseful")
