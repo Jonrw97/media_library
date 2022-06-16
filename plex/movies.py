@@ -65,17 +65,18 @@ def details_view():
     if request.method == 'POST':
         return render_template('movies/details_view.html', details = details)
 
-@bp.route('/edit_view')
+@bp.route('/edit_view', methods=('GET', 'POST'))
 @login_required
 
-def edit_view():    
+def edit_view(): 
+    db = get_db()  
     if request.method == 'GET':
-        db = get_db()
         movie_id = request.args['id']
-        details = db.execute("SELECT movie_title, year, director, actor FROM movies where id = ?", movie_id).fetchone()
+        details = db.execute("SELECT id, movie_title, year, director, actor FROM movies where id = ?", movie_id).fetchone()
 
     
     elif request.method == 'POST':
+        movie_id = request.args['id']
         movie_title = request.form['movie_title']
         year = request.form['year']
         director = request.form['director']
@@ -84,8 +85,12 @@ def edit_view():
         try:
             edit = db.execute(
                 "UPDATE movies SET movie_title=?, year=?, director=?, actor=? WHERE id=?",
-                (movie_title, year, director, actor))
-        except :
+                (movie_title, year, director, actor, movie_id))
+            db.commit()
+            print(edit)
+            print(movie_id)
+        except Exception as err :
+            print(err)
             flash("update failed")
         else:
             flash("update succseful")

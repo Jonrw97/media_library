@@ -3,15 +3,16 @@
 {% block content %}
 <h2>Edit View</h2>
 
-<form method="post">
+<form method="post" action = "{{ url_for('movies.edit_view',id = details[0]) }}">
+  
     <label for="movie_title">Movie Title</label>
-    <input name="movie_title" id="movie_title" value={{details[0]}} required>
+    <input name="movie_title" id="movie_title" value="{{details[1]}}" required>
     <label for="year">Year</label>
-    <input type="year" name="year" id="year" value={{details[1]}}>
+    <input type="year" name="year" id="year" value="{{details[2]}}">
     <label for="director">Director</label>
-    <input type="director" name="director" id="director" value={{details[2]}}>
+    <input type="director" name="director" id="director" value="{{details[3]}}">
     <label for="actor">Actor</label>
-    <input type="actor" name="actor" id="actor" value={{details[3]}}>
+    <input type="actor" name="actor" id="actor" value="{{details[4]}}">
     <input type="submit" value="Update Movie">
   </form> 
 

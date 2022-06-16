@@ -11,11 +11,11 @@ https://miro.com/app/board/uXjVOFF2cpg=/?utm_source=notification&utm_medium=emai
 - [x] Main Libary View
 - [x] Detail view
 - [x] Edit view - add (without actors)
-- [ ] Edit View - edit
+- [x] Edit View - edit
 - [ ] Sync Folder File Lister
 - [ ] Video Player View (HTML5 video player)
 - [x] Make Sure Every Page Checks the user is logged in 
-- [ ] Base layout
+- [x] Base layout
 - [x] Use 2 Flask Blueprints
 - [ ] Edit view - add actor
 - [ ] edit actor and delete actor
