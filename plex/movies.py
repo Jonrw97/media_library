@@ -1,4 +1,4 @@
-import functools
+import functools, mimetypes
 
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
@@ -38,10 +38,13 @@ def add_movie():
         else:
 
             if error is None:
+                mime_tuple = mimetypes.guess_type(file_name)
+                mime_type, mime_encoding = mime_tuple
+
                 try:
                     db.execute(
-                        "INSERT INTO movies (movie_title, year, director, actor, file_name) VALUES (?, ?, ?, ?, ?)",
-                        (movie_title, year, director, actor, file_name),
+                        "INSERT INTO movies (movie_title, year, director, actor, file_name, mime_type) VALUES (?, ?, ?, ?, ?, ?)",
+                        (movie_title, year, director, actor, file_name, mime_type),
                     )
                     db.commit()
                 except db.IntegrityError:
@@ -83,12 +86,14 @@ def edit_view():
         director = request.form['director']
         actor = request.form['actor']
         file_name = request.form['myfile']
-        print(file_name)
+
+        mime_tuple = mimetypes.guess_type(file_name)
+        mime_type, mime_encoding = mime_tuple
 
         try:
             edit = db.execute(
-                "UPDATE movies SET movie_title=?, year=?, director=?, actor=?, file_name=? WHERE id=?",
-                (movie_title, year, director, actor, file_name, movie_id))
+                "UPDATE movies SET movie_title=?, year=?, director=?, actor=?, file_name=?, mime_type=? WHERE id=?",
+                (movie_title, year, director, actor, file_name, mime_type, movie_id))
             db.commit()
         except Exception:
             flash("update failed")

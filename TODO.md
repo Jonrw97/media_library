@@ -12,7 +12,7 @@ https://miro.com/app/board/uXjVOFF2cpg=/?utm_source=notification&utm_medium=emai
 - [x] Detail view
 - [x] Edit view - add (without actors)
 - [x] Edit View - edit
-- [ ] Sync Folder File Lister
+- [x] Sync Folder File Lister
 - [ ] Video Player View (HTML5 video player)
 - [x] Make Sure Every Page Checks the user is logged in 
 - [x] Base layout
