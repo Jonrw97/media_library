@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Video Player</h2>
+
+<video controls>
+
+    <source src="/static/sync/{{ file_name }}"
+            type="video/mp4">
+
+
+
+    Sorry, your browser doesn't support embedded videos.
+</video>
+<br>
+<a href="{{ url_for('movies.library') }}">Library</a>
+{% endblock %}

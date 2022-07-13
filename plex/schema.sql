@@ -28,6 +28,6 @@ CREATE TABLE actors (
 ); 
 
 INSERT INTO movies(id, movie_title, year, director, actor, file_name, mime_type)
-    VALUES (1, "Allo Allo", 1982, "David Kroft", "Gorden Kaye", "Allo Allo.mkv", "video/mkv");
-INSERT INTO movies VALUES (2, "Batman: Christmas with Joker", 1992, "Kent Butterworth", "Kevin Conroy", "Batman Christmas wih Joker.mkv", "video/mkv");
-INSERT INTO movies VALUES (3, "American Dad", 2005, "Ron Hughart", "Seth MacFarlane", "American Dad.mp4", "video/mp4");
+    VALUES (1, "Allo Allo", 1982, "David Kroft", "Gorden Kaye", "Allo_Allo.mkv", "video/mkv");
+INSERT INTO movies VALUES (2, "Batman: Christmas with Joker", 1992, "Kent Butterworth", "Kevin Conroy", "Batman_Christmas_wih_Joker.mkv", "video/mkv");
+INSERT INTO movies VALUES (3, "American Dad", 2005, "Ron Hughart", "Seth MacFarlane", "American_Dad.mp4", "video/mp4");

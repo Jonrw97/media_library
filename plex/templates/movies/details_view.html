@@ -7,7 +7,7 @@
 <p>Year: {{ details[2] }}</p>
 <p>Director: {{ details[3] }}</p>
 <p>Actor: {{ details[4] }}</p>
-<p>Play</p>
+<p><a href="{{ url_for('movies.video_player', file_name=details[5]) }}">Play</a></p>
 <p><a href="{{ url_for('movies.edit_view', id=details[0]) }}">Edit</a></p>
 <a href="{{ url_for('movies.library') }}">Library</a>
 

@@ -61,7 +61,7 @@ https://miro.com/app/board/uXjVOFF2cpg=/?utm_source=notification&utm_medium=emai
 ## PHASE X
 
 - [ ] Profile management register user edit user
-- [ ] dont install passwords in plain text for all users
+- [x] dont install passwords in plain text for all users
 - [ ] Auto find new files in the sync folder
 - [ ] look up file meta data on api
 - [ ] upload the cover image file

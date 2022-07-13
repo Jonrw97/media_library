@@ -7,7 +7,9 @@ def create_app(test_config=None):
         SECRET_KEY='dev',
         DATABASE=os.path.join(app.instance_path, 'plex.sqlite'),
     )
-
+    #UPLOAD_FOLDER = 'static/sync'
+    #app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+  
     if test_config is None:
         app.config.from_pyfile('config.py', silent=True)
     else:
@@ -24,12 +26,12 @@ def create_app(test_config=None):
 
     from . import db
     db.init_app(app)
-
+    
     from . import auth
     app.register_blueprint(auth.bp)
-
     from . import movies
     app.register_blueprint(movies.bp)
     app.add_url_rule('/', endpoint='library')
-
+    
+    
     return app

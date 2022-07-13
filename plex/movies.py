@@ -3,7 +3,8 @@ import functools, mimetypes
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
-from werkzeug.exceptions import abort
+from werkzeug.security import check_password_hash, generate_password_hash
+from werkzeug.utils import secure_filename
 
 from plex.auth import login_required
 from plex.db import get_db
@@ -31,6 +32,9 @@ def add_movie():
         file_name = request.form['myfile']
         db = get_db()
         error = None
+        #file = request.files['myfile']
+        #filename = secure_filename(file.filename)
+        #file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
         if not movie_title:
             error = 'Movie Title is required.'
@@ -58,12 +62,12 @@ def add_movie():
 
 @bp.route('/details_view')
 @login_required
-
 def details_view():
     if request.method == 'GET':
         db = get_db()
         movie_id = request.args['id']
-        details = db.execute("SELECT id, movie_title, year, director, actor FROM movies where id = ?", movie_id).fetchone()
+        details = db.execute("SELECT id, movie_title, year, director, actor, file_name FROM movies where id = ?", movie_id).fetchone()
+        print("details", details[5])
         return render_template('movies/details_view.html', details = details)
 
     if request.method == 'POST':
@@ -71,7 +75,6 @@ def details_view():
 
 @bp.route('/edit_view', methods=('GET', 'POST'))
 @login_required
-
 def edit_view(): 
     db = get_db()  
     if request.method == 'GET':
@@ -86,6 +89,8 @@ def edit_view():
         director = request.form['director']
         actor = request.form['actor']
         file_name = request.form['myfile']
+        #f = request.files['myfile']
+        #f.save(secure_filename(f.filename))
 
         mime_tuple = mimetypes.guess_type(file_name)
         mime_type, mime_encoding = mime_tuple
@@ -104,4 +109,16 @@ def edit_view():
 
     return render_template('movies/edit_view.html', details = details)
 
+@bp.route('/video_player')
+@login_required
+def video_player():
 
+    if request.method == 'GET':
+        db = get_db()
+        file_name = request.args['file_name']
+        print("video_player", file_name)
+        return render_template('movies/video_player.html', file_name = file_name)
+
+    if request.method == 'POST':
+
+        return render_template('movies/video_player.html', file_name = file_name)
