@@ -128,4 +128,5 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-
+# video files
+plex/static/sync
