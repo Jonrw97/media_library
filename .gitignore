@@ -129,5 +129,5 @@ dmypy.json
 .pyre/
 
 # Video file
-.mkv
-.mp4
+*.mkv
+*.mp4
