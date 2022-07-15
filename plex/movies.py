@@ -1,4 +1,5 @@
-import functools, mimetypes
+import functools, mimetypes, os
+from os import path
 
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
@@ -25,38 +26,39 @@ def library():
 def add_movie():
 
     if request.method == 'POST':
+
+        db = get_db()
+        error = None
         movie_title = request.form['movie_title']
         year = request.form['year']
         director = request.form['director']
         actor = request.form['actor']
-        file_name = request.form['myfile']
-        db = get_db()
-        error = None
-        #file = request.files['myfile']
-        #filename = secure_filename(file.filename)
-        #file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        f = request.files['myfile']
+        f.save(os.path.join(os.path.abspath(os.path.dirname(__file__)),'static/sync',secure_filename(f.filename)))
+        file_name = f.filename
+        mime_tuple = mimetypes.guess_type(file_name)
+        mime_type, mime_encoding = mime_tuple
+       
+        if not path.exists(f'static/sync/{file_name}'):  
+            error = "Upload Fail: File already exists"
+        
 
-        if not movie_title:
-            error = 'Movie Title is required.'
+        if error is None:
 
-        else:
-
-            if error is None:
-                mime_tuple = mimetypes.guess_type(file_name)
-                mime_type, mime_encoding = mime_tuple
-
-                try:
-                    db.execute(
-                        "INSERT INTO movies (movie_title, year, director, actor, file_name, mime_type) VALUES (?, ?, ?, ?, ?, ?)",
-                        (movie_title, year, director, actor, file_name, mime_type),
-                    )
-                    db.commit()
-                except db.IntegrityError:
-                    error = f"User {movie_title} is already added to the libary."
+            try:
+                db.execute(
+                    "INSERT INTO movies (movie_title, year, director, actor, file_name, mime_type) VALUES (?, ?, ?, ?, ?, ?)",
+                    (movie_title, year, director, actor, file_name, mime_type),
+                )
+                db.commit()
+            except db.IntegrityError:
+                error = f"User {movie_title} is already added to the libary."
                     
-                return redirect(url_for('library'))
+            return redirect(url_for('library'))
 
         flash(error)
+        return redirect(url_for('library'))
+
     else:
         return render_template('movies/add_movie.html')
 
@@ -83,17 +85,21 @@ def edit_view():
 
     
     elif request.method == 'POST':
+        error = None
         movie_id = request.args['id']
         movie_title = request.form['movie_title']
         year = request.form['year']
         director = request.form['director']
         actor = request.form['actor']
-        file_name = request.form['myfile']
-        #f = request.files['myfile']
-        #f.save(secure_filename(f.filename))
-
+        f = request.files['myfile']
+        f.save(os.path.join(os.path.abspath(os.path.dirname(__file__)),'static/sync',secure_filename(f.filename)))
+        file_name = f.filename
         mime_tuple = mimetypes.guess_type(file_name)
         mime_type, mime_encoding = mime_tuple
+
+        if not path.exists(f'static/sync/{file_name}'):  
+            flash("Upload Fail: File already exists")
+            return redirect(url_for('library'))
 
         try:
             edit = db.execute(
@@ -105,6 +111,7 @@ def edit_view():
         else:
             flash("update succseful")
         finally:
+            flash
             return redirect(url_for('library'))
 
     return render_template('movies/edit_view.html', details = details)
@@ -122,3 +129,6 @@ def video_player():
     if request.method == 'POST':
 
         return render_template('movies/video_player.html', file_name = file_name)
+
+
+

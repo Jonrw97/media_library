@@ -4,7 +4,7 @@
 
 <h2>Add Movie</h2>
 
-<form method="post">
+<form method="post" enctype = "multipart/form-data">
 
     <label for="movie_title">Movie Title</label>
     <input name="movie_title" id="movie_title" required>
@@ -15,7 +15,7 @@
     <label for="actor">Actor</label>
     <input type="actor" name="actor" id="actor">
     <label for="myfile">Select a file:</label>
-    <input type="file" id="myfile" name="myfile" accept=".mp4,.mkv, .mov"><br><br>
+    <input type="file" id="myfile" name="myfile" accept=".mp4,.mkv, .mov" required><br><br>
     <input type="submit" value="Add Movie">
   </form> 
 
