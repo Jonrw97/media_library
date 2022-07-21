@@ -38,11 +38,7 @@ def add_movie():
         file_name = f.filename
         mime_tuple = mimetypes.guess_type(file_name)
         mime_type, mime_encoding = mime_tuple
-       
-        if path.exists(f'static/sync/{file_name}'):  
-            error = "Upload Fail: File already exists"
         
-
         if error is None:
 
             try:
@@ -96,10 +92,6 @@ def edit_view():
         file_name = f.filename
         mime_tuple = mimetypes.guess_type(file_name)
         mime_type, mime_encoding = mime_tuple
-
-        #if path.exists(f'static/sync/{file_name}'):  
-            #flash("Upload Fail: File already exists")
-            #return redirect(url_for('library'))
 
         try:
             edit = db.execute(
