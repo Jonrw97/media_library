@@ -18,7 +18,7 @@ def library():
 
     db = get_db()
     cur = db.cursor()
-    media = cur.execute("SELECT id, movie_title, year, director, actor FROM movies").fetchall()
+    media = cur.execute("SELECT movie_id, movie_title, year, director, actor FROM movies").fetchall()
     return render_template('movies/library.html', media = media)
 
 @bp.route('/add_movie', methods=('GET', 'POST'))
@@ -63,8 +63,8 @@ def add_movie():
 def details_view():
     if request.method == 'GET':
         db = get_db()
-        movie_id = request.args['id']
-        details = db.execute("SELECT id, movie_title, year, director, actor, file_name FROM movies where id = ?", movie_id).fetchone()
+        movie_id = request.args['movie_id']
+        details = db.execute("SELECT movie_id, movie_title, year, director, actor, file_name FROM movies where movie_id = ?", movie_id).fetchone()
         print("details", details[5])
         return render_template('movies/details_view.html', details = details)
 
@@ -76,13 +76,13 @@ def details_view():
 def edit_view(): 
     db = get_db()  
     if request.method == 'GET':
-        movie_id = request.args['id']
-        details = db.execute("SELECT id, movie_title, year, director, actor, file_name FROM movies WHERE id = ?", movie_id).fetchone()
+        movie_id = request.args['movie_id']
+        details = db.execute("SELECT movie_id, movie_title, year, director, actor, file_name FROM movies WHERE movie_id = ?", movie_id).fetchone()
 
     
     elif request.method == 'POST':
         error = None
-        movie_id = request.args['id']
+        movie_id = request.args['movie_id']
         movie_title = request.form['movie_title']
         year = request.form['year']
         director = request.form['director']
@@ -95,7 +95,7 @@ def edit_view():
 
         try:
             edit = db.execute(
-                "UPDATE movies SET movie_title=?, year=?, director=?, actor=?, file_name=?, mime_type=? WHERE id=?",
+                "UPDATE movies SET movie_title=?, year=?, director=?, actor=?, file_name=?, mime_type=? WHERE movie_id=?",
                 (movie_title, year, director, actor, file_name, mime_type, movie_id))
             db.commit()
         except Exception:

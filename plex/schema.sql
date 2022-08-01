@@ -10,7 +10,7 @@ CREATE TABLE user (
 );
 
 CREATE TABLE movies (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    movie_id INTEGER PRIMARY KEY AUTOINCREMENT,
     movie_title VARCHAR(255) NOT NULL,
     year INTEGER,
     director VARCHAR(255),
@@ -20,14 +20,15 @@ CREATE TABLE movies (
 );
 
 CREATE TABLE actors (
-    actor_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    id INTERGER,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    movie_id INTERGER,
     first_name_text VARCHAR(255),
     last_name_text VARCHAR(255),
-    character VARCHAR(255)
+    character VARCHAR(255),
+    FOREIGN KEY(movie_id) REFERENCES movies(movie_id)
 ); 
 
-INSERT INTO movies(id, movie_title, year, director, actor, file_name, mime_type)
+INSERT INTO movies(movie_id, movie_title, year, director, actor, file_name, mime_type)
     VALUES (1, "Allo Allo", 1982, "David Kroft", "Gorden Kaye", "Allo_Allo.mkv", "video/mkv");
 INSERT INTO movies VALUES (2, "Batman: Christmas with Joker", 1992, "Kent Butterworth", "Kevin Conroy", "Batman_Christmas_wih_Joker.mkv", "video/mkv");
 INSERT INTO movies VALUES (3, "American Dad", 2005, "Ron Hughart", "Seth MacFarlane", "American_Dad.mp4", "video/mp4");

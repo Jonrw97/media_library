@@ -3,7 +3,7 @@
 {% block content %}
 <h2>Edit View</h2>
 
-<form method="post" action = "{{ url_for('movies.edit_view',id = details[0]) }}" enctype = "multipart/form-data">
+<form method="post" action = "{{ url_for('movies.edit_view',move_id = details[0]) }}" enctype = "multipart/form-data">
   
     <label for="movie_title">Movie Title</label>
     <input name="movie_title" id="movie_title" value="{{details[1]}}" required>

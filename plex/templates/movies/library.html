@@ -20,7 +20,7 @@
             <td> {{ row[2] }}</td>
             <td> {{ row[3] }}</td>
             <td> {{ row[4] }}</td>
-            <td> <a href="{{ url_for('movies.details_view', id = row[0]) }}">Details View</a></td>
+            <td> <a href="{{ url_for('movies.details_view', movie_id = row[0]) }}">Details View</a></td>
         </tr>
 
     {% endfor %}
