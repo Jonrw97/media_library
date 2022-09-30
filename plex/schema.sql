@@ -21,11 +21,13 @@ CREATE TABLE movies (
 
 CREATE TABLE actors (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    movie_id INTERGER,
     first_name_text VARCHAR(255),
     last_name_text VARCHAR(255),
     character VARCHAR(255),
-    FOREIGN KEY(movie_id) REFERENCES movies(movie_id)
+    FOREIGN KEY(movie_id) 
+        REFERENCES movies(movie_id)
+            ON UPDATE CASCADE
+            ON DELETE CASCADE
 ); 
 
 INSERT INTO movies(movie_id, movie_title, year, director, actor, file_name, mime_type)
