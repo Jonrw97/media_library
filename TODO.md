@@ -60,6 +60,8 @@ https://miro.com/app/board/uXjVOFF2cpg=/?utm_source=notification&utm_medium=emai
 
 ## PHASE X
 
+- [ ] Deploy to server
+  - [ ] Introduction to GitHub actions to deploy
 - [ ] Profile management register user edit user
 - [x] dont install passwords in plain text for all users
 - [ ] Auto find new files in the sync folder
