@@ -17,14 +17,16 @@ https://miro.com/app/board/uXjVOFF2cpg=/?utm_source=notification&utm_medium=emai
 - [x] Make Sure Every Page Checks the user is logged in 
 - [x] Base layout
 - [x] Use 2 Flask Blueprints
-- [ ] Edit view - add actor
+- [ ] Edit movie view - to include actors for editing
 - [ ] edit actor and delete actor
+- [ ] add actor
 - [x] dont install passwords in plain text
 - [ ] Flask tests,  add movie, render libary page, edit view
 - [ ] documents
 
 ## PHASE 2
 
+- [ ] Use WTForm
 - [ ] Refactor the app to have seprate layers for database access and buisness logic
 - [ ] Introduce Flask form validation
 - [ ] documents
