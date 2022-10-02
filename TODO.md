@@ -25,30 +25,31 @@ https://miro.com/app/board/uXjVOFF2cpg=/?utm_source=notification&utm_medium=emai
 
 ## PHASE 2
 
-- [ ] Deploy to home server by installing python, virtual enviroment, flask and run flask on the server
-- [ ] documents
-
-
-## PHASE 3
-
 - [ ] Refactor the app to have seprate layers for database access and buisness logic
-- [ ] implement python modles for entities (movie, actor, user)
-- [ ] Use Flask forms with models 
 - [ ] Introduce Flask form validation
 - [ ] documents
 
-
-## PHASE 4
+## PHASE 3
 
 - [ ] Change the relationship between actors and movies so that actors can be in multiple movies
 - [ ] add and actors management module to the UI
 - [ ] documents
 
+## PHASE 4
+
+- [ ] implement python models for entities (movie, actor, user)
+- [ ] Use Flask forms with models 
+- [ ] Use an ORM
+- [ ] documents
+
 
 ## PHASE 5
 
-- [ ] Use an ORM
+- [ ] Deploy to home server by installing python, virtual enviroment, flask and run flask on the server
+- [ ] Securing the web application
 - [ ] documents
+
+
 
 
 ## PHASE 6
