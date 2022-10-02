@@ -37,17 +37,19 @@ https://miro.com/app/board/uXjVOFF2cpg=/?utm_source=notification&utm_medium=emai
 
 ## PHASE 4
 
+- [ ] Deploy to home server by installing python, virtual enviroment, flask and run flask on the server
+- [ ] Securing the web application
+- [ ] documents
+
+## PHASE 5
+
 - [ ] implement python models for entities (movie, actor, user)
 - [ ] Use Flask forms with models 
 - [ ] Use an ORM
 - [ ] documents
 
 
-## PHASE 5
 
-- [ ] Deploy to home server by installing python, virtual enviroment, flask and run flask on the server
-- [ ] Securing the web application
-- [ ] documents
 
 
 
