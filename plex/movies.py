@@ -18,8 +18,10 @@ def library():
 
     db = get_db()
     cur = db.cursor()
-    media = cur.execute("SELECT movie_id, movie_title, year, director, actor FROM movies").fetchall()
-    return render_template('movies/library.html', media = media)
+    media = cur.execute("""SELECT movies.id, movies.movie_title, movies.year, movies.director, 
+                            actors.id, actors.name, actors.character, actors.movie_id 
+                            FROM movies, actors WHERE movies.id = actors.movie_id""").fetchall()
+    return render_template('movies/library.html', media_movies = media)
 
 @bp.route('/add_movie', methods=('GET', 'POST'))
 @login_required
@@ -32,7 +34,6 @@ def add_movie():
         movie_title = request.form['movie_title']
         year = request.form['year']
         director = request.form['director']
-        actor = request.form['actor']
         f = request.files['myfile']
         f.save(os.path.join(os.path.abspath(os.path.dirname(__file__)),'static/sync',secure_filename(f.filename)))
         file_name = f.filename
@@ -43,8 +44,8 @@ def add_movie():
 
             try:
                 db.execute(
-                    "INSERT INTO movies (movie_title, year, director, actor, file_name, mime_type) VALUES (?, ?, ?, ?, ?, ?)",
-                    (movie_title, year, director, actor, file_name, mime_type),
+                    "INSERT INTO movies (movie_title, year, director, file_name, mime_type) VALUES (?, ?, ?, ?, ?, ?)",
+                    (movie_title, year, director, file_name, mime_type),
                 )
                 db.commit()
             except db.IntegrityError:
@@ -63,30 +64,33 @@ def add_movie():
 def details_view():
     if request.method == 'GET':
         db = get_db()
-        movie_id = request.args['movie_id']
-        details = db.execute("SELECT movie_id, movie_title, year, director, actor, file_name FROM movies where movie_id = ?", movie_id).fetchone()
-        print("details", details[5])
-        return render_template('movies/details_view.html', details = details)
+        id = request.args['id']
+        details_movies = db.execute("SELECT id, movie_title, year, director, file_name FROM movies where id = ?", id).fetchone()
+        details_actors = db.execute("SELECT id, name, character, movie_id FROM actors WHERE movie_id = ?", id).fetchall()
+        return render_template('movies/details_view.html', details_movies = details_movies, details_actors = details_actors)
 
     if request.method == 'POST':
-        return render_template('movies/details_view.html', details = details)
+        return render_template('movies/details_view.html', details_movies = details_movies, details_actors = details_actors)
 
 @bp.route('/edit_view', methods=('GET', 'POST'))
 @login_required
 def edit_view(): 
     db = get_db()  
     if request.method == 'GET':
-        movie_id = request.args['movie_id']
-        details = db.execute("SELECT movie_id, movie_title, year, director, actor, file_name FROM movies WHERE movie_id = ?", movie_id).fetchone()
+        id = request.args['id']
+        details = db.execute("SELECT id, movie_title, year, director, file_name FROM movies WHERE movies.id = ? ", id).fetchone()
+        actor_details = db.execute("SELECT id, name, character, movie_id FROM actors WHERE movie_id = ?", id)
 
     
     elif request.method == 'POST':
         error = None
-        movie_id = request.args['movie_id']
+        id = request.args['id']
         movie_title = request.form['movie_title']
         year = request.form['year']
         director = request.form['director']
-        actor = request.form['actor']
+        name = request.form['name{{actor.id}}']
+        character = request.form['character{{actor.id}}']
+        movie_id = request.args['id']
         f = request.files['myfile']
         f.save(os.path.join(os.path.abspath(os.path.dirname(__file__)),'static/sync',secure_filename(f.filename)))
         file_name = f.filename
@@ -95,8 +99,12 @@ def edit_view():
 
         try:
             edit = db.execute(
-                "UPDATE movies SET movie_title=?, year=?, director=?, actor=?, file_name=?, mime_type=? WHERE movie_id=?",
-                (movie_title, year, director, actor, file_name, mime_type, movie_id))
+                "UPDATE movies SET movie_title=?, year=?, director=?, file_name=?, mime_type=? WHERE id=?",
+                (movie_title, year, director, file_name, mime_type, id))
+            edit_actors = db.execute(
+                "UPDATE actors SET name=?, character=?, movie_id=? WHERE movie id = movies.id",
+                (name, character, movie_id))
+
             db.commit()
         except Exception:
             flash("update failed")
@@ -106,7 +114,7 @@ def edit_view():
             flash
             return redirect(url_for('library'))
 
-    return render_template('movies/edit_view.html', details = details)
+    return render_template('movies/edit_view.html', details = details, actor_details = actor_details)
 
 @bp.route('/video_player')
 @login_required

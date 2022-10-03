@@ -10,27 +10,32 @@ CREATE TABLE user (
 );
 
 CREATE TABLE movies (
-    movie_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     movie_title VARCHAR(255) NOT NULL,
     year INTEGER,
     director VARCHAR(255),
-    actor VARCHAR(255),
     file_name VARCHAR(255),
     mime_type VARCHAR(255)
 );
 
 CREATE TABLE actors (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    first_name_text VARCHAR(255),
-    last_name_text VARCHAR(255),
+    name VARCHAR(255),
     character VARCHAR(255),
-    FOREIGN KEY(movie_id) 
-        REFERENCES movies(movie_id)
-            ON UPDATE CASCADE
-            ON DELETE CASCADE
+    movie_id INTEGER NOT NULL,
+    FOREIGN KEY (movie_id) 
+    REFERENCES movies (id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
 ); 
 
-INSERT INTO movies(movie_id, movie_title, year, director, actor, file_name, mime_type)
-    VALUES (1, "Allo Allo", 1982, "David Kroft", "Gorden Kaye", "Allo_Allo.mkv", "video/mkv");
-INSERT INTO movies VALUES (2, "Batman: Christmas with Joker", 1992, "Kent Butterworth", "Kevin Conroy", "Batman_Christmas_wih_Joker.mkv", "video/mkv");
-INSERT INTO movies VALUES (3, "American Dad", 2005, "Ron Hughart", "Seth MacFarlane", "American_Dad.mp4", "video/mp4");
+INSERT INTO movies(id, movie_title, year, director, file_name, mime_type)
+    VALUES (1, "Allo Allo", 1982, "David Kroft", "Allo_Allo.mkv", "video/mkv");
+INSERT INTO movies VALUES (2, "Batman: Christmas with Joker", 1992, "Kent Butterworth", "Batman_Christmas_wih_Joker.mkv", "video/mkv");
+INSERT INTO movies VALUES (3, "American Dad", 2005, "Ron Hughart", "American_Dad.mp4", "video/mp4");
+
+INSERT INTO actors(id ,name, character, movie_id)
+    VALUES(1, "Gorden Kaye", "Rene Artois", 1);
+INSERT INTO actors VALUES(2, "Kevin Conroy", "Batman", 2);
+INSERT INTO actors VALUES(3, "Seth Macfarlane", "Rodger", 3);
+INSERT INTO actors VALUES(4, "Bob Jones", "Smith", 3);

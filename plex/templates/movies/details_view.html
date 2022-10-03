@@ -3,12 +3,15 @@
 {% block content %}
 <h2>Details View</h2>
 
-<p>Movie Title: {{ details[1] }}</p>
-<p>Year: {{ details[2] }}</p>
-<p>Director: {{ details[3] }}</p>
-<p>Actor: {{ details[4] }}</p>
-<p><a href="{{ url_for('movies.video_player', file_name=details[5]) }}">Play</a></p>
-<p><a href="{{ url_for('movies.edit_view', movie_id=details[0]) }}">Edit</a></p>
+<p>Movie Title: {{ details_movies[1] }}</p>
+<p>Year: {{ details_movies[2] }}</p>
+<p>Director: {{ details_movies[3] }}</p>
+<p>Actors</p>
+{% for actor in details_actors %}   
+        <p>{{actor[1]}} as {{actor[2]}}</p>
+{% endfor %}
+<p><a href="{{ url_for('movies.video_player', file_name=details_movies[4]) }}">Play</a></p>
+<p><a href="{{ url_for('movies.edit_view', id=details_movies[0]) }}">Edit</a></p>
 <a href="{{ url_for('movies.library') }}">Library</a>
 
 {% endblock %}
