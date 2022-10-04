@@ -21,14 +21,15 @@ https://miro.com/app/board/uXjVOFF2cpg=/?utm_source=notification&utm_medium=emai
 - [ ] edit actor and delete actor
 - [ ] add actor
 - [x] dont install passwords in plain text
-- [ ] Flask tests,  add movie, render libary page, edit view
-- [ ] documents
 
 ## PHASE 2
 
-- [ ] Use WTForm
 - [ ] Refactor the app to have seprate layers for database access and buisness logic
+- [ ] Use WTForm / with validations - https://flask-wtf.readthedocs.io/en/1.0.x/quickstart/
 - [ ] Introduce Flask form validation
+- [ ] Handle child objects (actors) - using WTForm 'field enclosures' to create repeated fields
+- [ ] Flask tests,  add movie, render libary page, edit view
+- [ ] CSRF
 - [ ] documents
 
 ## PHASE 3
