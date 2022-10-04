@@ -26,9 +26,11 @@ https://miro.com/app/board/uXjVOFF2cpg=/?utm_source=notification&utm_medium=emai
 
 ## PHASE 2
 
-- [ ] Use WTForm
 - [ ] Refactor the app to have seprate layers for database access and buisness logic
+- [ ] Use WTForm / with validations - https://flask-wtf.readthedocs.io/en/1.0.x/quickstart/
 - [ ] Introduce Flask form validation
+- [ ] Handle child objects (actors) - using WTForm 'field enclosures' to create repeated fields
+- [ ] CSRF
 - [ ] documents
 
 ## PHASE 3
