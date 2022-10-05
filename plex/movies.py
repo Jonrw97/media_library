@@ -11,6 +11,8 @@ from werkzeug.utils import secure_filename
 
 from plex.auth import login_required
 from plex.db import get_db
+import plex.movies_das as movies_das
+import plex.file_media_service as file_media_service
 
 bp = Blueprint('movies', __name__)
 
@@ -33,36 +35,37 @@ def add_movie():
 
     if request.method == 'POST':
 
-        db = get_db()
-        error = None
         movie_title = request.form['movie_title']
         year = request.form['year']
         director = request.form['director']
         f = request.files['myfile']
-        f.save(os.path.join(os.path.abspath(os.path.dirname(__file__)),
-               'static/sync', secure_filename(f.filename)))
-        file_name = f.filename
-        mime_tuple = mimetypes.guess_type(file_name)
-        mime_type, mime_encoding = mime_tuple
 
-        if error is None:
+        result, error, mime_type, file_name = file_media_service.save_file(f)
 
-            try:
-                db.execute(
-                    "INSERT INTO movies (movie_title, year, director, file_name, mime_type) VALUES (?, ?, ?, ?, ?, ?)",
-                    (movie_title, year, director, file_name, mime_type),
-                )
-                db.commit()
-            except db.IntegrityError:
-                error = f"User {movie_title} is already added to the libary."
+        if result == 0:
+            result, error = movies_das.add_movie(movie_title, year, director, file_name, mime_type)
 
+        if result == 0:
             return redirect(url_for('library'))
-
-        flash(error)
-        return redirect(url_for('library'))
+        else:
+            flash(error)
+            return redirect(url_for('library'))
 
     else:
         return render_template('movies/add_movie.html')
+
+        # if error is None:
+        #
+        #     try:
+        #         db.execute(
+        #             "INSERT INTO movies (movie_title, year, director, file_name, mime_type) VALUES (?, ?, ?, ?, ?, ?)",
+        #             (movie_title, year, director, file_name, mime_type),
+        #         )
+        #         db.commit()
+        #     except db.IntegrityError:
+        #         error = f"User {movie_title} is already added to the libary."
+
+
 
 
 @bp.route('/details_view')
