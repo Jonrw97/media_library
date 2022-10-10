@@ -87,8 +87,17 @@ def edit_view():
         for actor in details_actors:
             name = request.form[f'name{actor[0]}']
             character = request.form[f'character{actor[0]}']
-            actor_id, error = movies_das.update_actor(
+            actor_id = actor[0]
+            print(repr(name))
+            if not name:
+                print("remove1")
+                print(actor_id)
+                error = movies_das.delete_actor(actor_id)
+                print("remove2")
+
+            id, error = movies_das.update_actor(
                 name, character, actor[0])
+            print(f"Update {actor[0]}")
 
         new_name = request.form['name-new']
         new_character = request.form['character-new']

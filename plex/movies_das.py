@@ -92,7 +92,15 @@ def update_actor(name, character, actor):
 
 
 def delete_actor(actor_id):
-    return None
+    db = get_db()
+    try:
+        db.execute("DELETE FROM actors WHERE id=?", (actor_id))
+        db.commit()
+    except db.IntegrityError:
+        error = f"Fail: actor{actor_id} could not be deleted."
+    else:
+        error = f"Actor{actor_id} removed succesfully"
+        return error
 
 
 # ====================================================================================================================
