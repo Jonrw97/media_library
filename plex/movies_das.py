@@ -24,7 +24,7 @@ def get_movie(movie_id):
 
 def add_movie(movie_title, year, director, file_name, mime_type):
     db = get_db()
-
+    result = 0
     error = None
     try:
         db.execute(
@@ -34,14 +34,16 @@ def add_movie(movie_title, year, director, file_name, mime_type):
         db.commit()
     except db.IntegrityError:
         error = f"Failed:{movie_title} is already added to the library."
+        result = 1
     else:
         error = f"{movie_title} added to libary."
 
-    return error, id  # return movie_id that was just inserted
+    return result, error, id
 
 
 def update_movie(id, movie_title, year, director):
     db = get_db()
+    result = 0
     error = None
     try:
         db.execute("UPDATE movies SET movie_title=?, year=?, director=? WHERE id=?",
@@ -49,10 +51,11 @@ def update_movie(id, movie_title, year, director):
         db.commit()
     except db.IntegrityError:
         error = f"Fail: {movie_title} updated unsuccessful."
+        result = 1
     else:
         error = f"{movie_title} updated successful."
 
-    return error, id
+    return result, error, id
 
 
 def get_actors_for_movie(movie_id):
@@ -65,6 +68,7 @@ def get_actors_for_movie(movie_id):
 
 def add_actor(new_name, new_character, movie_id):
     db = get_db()
+    result = 0
     error = None
     try:
         db.execute("INSERT INTO actors (name, character, movie_id) VALUES (?,?,?)",
@@ -72,35 +76,43 @@ def add_actor(new_name, new_character, movie_id):
         db.commit()
     except db.IntegrityError:
         error = f"Fail: Actor could not be added."
+        result = 1
     else:
         error = "Actor added."
-    return movie_id, error
+        result = 0
+    return result, error, movie_id
 
 
 def update_actor(name, character, actor):
     db = get_db()
+    result = 0
+    error = None
     try:
         db.execute("UPDATE actors SET name=?, character=? WHERE id = ?",
                    (name, character, actor))
         db.commit()
     except db.IntegrityError:
         error = "Fail: actors update unsuccessful."
+        result = 1
     else:
         error = "Actors update successful."
 
-    return actor, error
+    return result, error, actor
 
 
 def delete_actor(actor_id):
     db = get_db()
+    result = 0
+    error = None
     try:
-        db.execute("DELETE FROM actors WHERE id=?", (actor_id))
+        db.execute("DELETE FROM actors WHERE id=?", (actor_id,))
         db.commit()
     except db.IntegrityError:
         error = f"Fail: actor{actor_id} could not be deleted."
+        result = 1
     else:
         error = f"Actor{actor_id} removed succesfully"
-        return error
+        return result, error
 
 
 # ====================================================================================================================
@@ -108,8 +120,12 @@ def delete_actor(actor_id):
 # ====================================================================================================================
 
 def get_movie_with_actors(movie_id):
+    # select movie
+    # for loop select actor where movie_id = movie
     return None
 
 
 def update_movie_with_actors(movie_id):
+    # update actors
+    # for loop update actors where id = movie_id
     return None

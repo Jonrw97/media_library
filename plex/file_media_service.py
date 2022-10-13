@@ -1,5 +1,6 @@
-import os
 import mimetypes
+import os
+from os import path
 from werkzeug.utils import secure_filename
 
 

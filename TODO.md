@@ -17,18 +17,18 @@ https://miro.com/app/board/uXjVOFF2cpg=/?utm_source=notification&utm_medium=emai
 - [x] Make Sure Every Page Checks the user is logged in 
 - [x] Base layout
 - [x] Use 2 Flask Blueprints
-- [ ] Edit movie view - to include actors for editing
-- [ ] edit actor and delete actor
-- [ ] add actor
+- [x] Edit movie view - to include actors for editing
+- [x] edit actor and delete actor
+- [x] add actor
 - [x] dont install passwords in plain text
 
 ## PHASE 2
 
 - [ ] Refactor Flask controller to have no dependencies on db.py i.e. introduce a data access layer
-  - [ ] Part 1: move all logic into movies_das
-  - [ ] Part 1: implement all file services in file_media_service
-  - [ ] Handle exception in media service
-  - [ ] Implement a common return pattern from the das layer (i.e. result, error, etc) 
+  - [x] Part 1: move all logic into movies_das
+  - [x] Part 1: implement all file services in file_media_service
+  - [x] Handle exception in media service
+  - [x] Implement a common return pattern from the das layer (i.e. result, error, etc) 
   - [ ] Part 2: refactor to use the single methods to handle movie + actor updates in one go - 
         so think about how you would pass the movie and actors in one method call and ensure that they are all 
         committed in one go

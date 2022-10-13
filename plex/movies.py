@@ -39,7 +39,7 @@ def add_movie():
         result, error, mime_type, file_name = file_media_service.save_file(f)
 
         if result == 0:
-            error, id = movies_das.add_movie(
+            result, error, id = movies_das.add_movie(
                 movie_title, year, director, file_name, mime_type)
 
         flash(error)
@@ -79,7 +79,8 @@ def edit_view():
         year = request.form['year']
         director = request.form['director']
         details_actors = movies_das.get_actors_for_movie(id)
-        error, id = movies_das.update_movie(id, movie_title, year, director)
+        result, error, id = movies_das.update_movie(
+            id, movie_title, year, director)
         if result == 1:
             flash(error)
             return redirect(url_for('library'))
@@ -88,21 +89,18 @@ def edit_view():
             name = request.form[f'name{actor[0]}']
             character = request.form[f'character{actor[0]}']
             actor_id = actor[0]
-            print(repr(name))
             if not name:
-                print("remove1")
-                print(actor_id)
-                error = movies_das.delete_actor(actor_id)
-                print("remove2")
+                result, error = movies_das.delete_actor(actor_id)
 
-            id, error = movies_das.update_actor(
+            result, error, id = movies_das.update_actor(
                 name, character, actor[0])
             print(f"Update {actor[0]}")
 
         new_name = request.form['name-new']
         new_character = request.form['character-new']
         if new_name and new_character:
-            movie_id, error = movies_das.add_actor(new_name, new_character, id)
+            result, error, id = movies_das.add_actor(
+                new_name, new_character, id)
 
         flash(error)
         return redirect(url_for('library'))
