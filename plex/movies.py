@@ -2,11 +2,16 @@ import functools
 import mimetypes
 import os
 from os import path
+from wsgiref import validate
 
 from flask import (Blueprint, flash, g, redirect, render_template, request,
                    session, url_for)
+from flask_wtf import FlaskForm
+from flask_wtf.file import FileField, FileRequired
 from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
+from wtforms import FieldList, FormField, HiddenField, StringField
+from wtforms.validators import DataRequired
 
 import plex.file_media_service as file_media_service
 import plex.movies_das as movies_das
@@ -14,6 +19,28 @@ from plex.auth import login_required
 from plex.db import get_db
 
 bp = Blueprint('movies', __name__)
+
+
+class AddMovieForm(FlaskForm):
+    movie_title = StringField("Movie Title", validators=[DataRequired()])
+    year = StringField("Year", validators=[DataRequired()])
+    director = StringField("Director", validators=[DataRequired()])
+    file = FileField(validators=[FileRequired()])
+
+
+class ActorForm(FlaskForm):
+    actor_name = StringField("Name")
+    character = StringField("Character")
+    actor_id = HiddenField("id")
+
+
+class EditMovieForm(FlaskForm):
+    movie_title = StringField("Movie Title", validators=[DataRequired()])
+    year = StringField("Year", validators=[DataRequired()])
+    director = StringField("Director", validators=[DataRequired()])
+    actorsfields = FieldList(FormField((ActorForm)))
+    new_name = StringField("New Name")
+    new_character = StringField("New Character")
 
 
 @bp.route('/')
@@ -27,24 +54,19 @@ def library():
 @bp.route('/add_movie', methods=('GET', 'POST'))
 @login_required
 def add_movie():
-
+    form = AddMovieForm()
     if request.method == 'POST':
-
-        movie_title = request.form['movie_title']
-        year = request.form['year']
-        director = request.form['director']
-        f = request.files['myfile']
-
-        result, error, mime_type, file_name = file_media_service.save_file(f)
+        result, error, mime_type, file_name = file_media_service.save_file(
+            form.file.data)
 
         if result == 0:
             result, error, id = movies_das.add_movie(
-                movie_title, year, director, file_name, mime_type)
+                form.movie_title.data, form.year.data, form.director.data, file_name, mime_type)
 
         flash(error)
         return redirect(url_for('library'))
     else:
-        return render_template('movies/add_movie.html')
+        return render_template('movies/add_movie.html', form=form)
 
 
 @bp.route('/details_view')
@@ -63,46 +85,38 @@ def details_view():
 @bp.route('/edit_view', methods=('GET', 'POST'))
 @login_required
 def edit_view():
-    db = get_db()
+    form = EditMovieForm()
     if request.method == 'GET':
         id = request.args['id']
         details_movies, details_actors = movies_das.get_movie_with_actors(id)
+        for actor in details_actors:
+            form.actorsfields.append_entry(ActorForm(actor))
 
     elif request.method == 'POST':
-        error = None
-        result = 0
         update_movie = 0
         id = request.args['id']
-        movie_title = request.form['movie_title']
-        year = request.form['year']
-        director = request.form['director']
         details_movies, details_actors = movies_das.get_movie_with_actors(id)
 
-        for actor in details_actors:
-            name = request.form[f'name{actor[0]}']
-            character = request.form[f'character{actor[0]}']
+        for actorform in form.actorsfields:
+            #name = request.form[f'name{actor[0]}']
+            #character = request.form[f'character{actor[0]}']
             actor_id = actor[0]
-            if result == 1:
-                flash(error)
-                return redirect(url_for('library'))
-
-            elif not name:
+            if not form.name.data and not form.character.data:
                 result, error = movies_das.delete_actor(actor_id)
 
             else:
                 result, error, id = movies_das.update_movie_with_actors(
-                    update_movie, id, movie_title, year, director, name, character, actor[0])
+                    update_movie, id, form.movie_title.data, form.year.data,
+                    form.director.data, form.name.data, form.character.data, actor[0])
 
-        new_name = request.form['name-new']
-        new_character = request.form['character-new']
-        if new_name and new_character:
+        if form.new_name.data and form.new_character.data:
             result, error, id = movies_das.add_actor(
-                new_name, new_character, id)
+                form.new_name.data, form.new_character.data, id)
 
         flash(error)
         return redirect(url_for('library'))
 
-    return render_template('movies/edit_view.html', details_movies=details_movies, details_actors=details_actors)
+    return render_template('movies/edit_view.html', details_movies=details_movies, details_actors=details_actors, form=form)
 
 # update_post
 

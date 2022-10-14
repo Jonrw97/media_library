@@ -3,29 +3,29 @@
 {% block content %}
 <h2>Edit View</h2>
 
-<form method="post" action="{{ url_for('movies.edit_view',id = details_movies[0]) }}" enctype="multipart/form-data">
+<form method="post" action="{{ url_for('movies.edit_view',id = details_movies[0], actors = details_actors) }}">
 
-  <label for="movie_title">Movie Title</label>
-  <input type="text" name="movie_title" id="movie_title" value="{{details_movies[1]}}" required>
-  <label for="year">Year</label>
-  <input type="text" name="year" id="year" value="{{details_movies[2]}}">
-  <label for="director">Director</label>
-  <input type="text" name="director" id="director" value="{{details_movies[3]}}">
-  {% for actor in details_actors %}
-  <p>Actor{{actor.id}}</p>
-  <label for='name'>Name</label>
-  <input id="name{{actor.id}}" name="name{{actor.id}}" type="text" value="{{actor.name}}">
-  <label for='character'>Character</label>
-  <input id="character{{actor.id}}" name="character{{actor.id}}" type="text" value="{{actor.character}}">
+  {{ form.hidden_tag() }}
+  {{ form.movie_title.label }} {{ form.movie_title(size=20, value=details_movies[1]) }}
+  {{ form.year.label }} {{ form.year(size=20, value=details_movies[2]) }}
+  {{ form.director.label }} {{ form.director(size=20, value=details_movies[3]) }}
+
+
+  {% for actorform in form.actorsfields.entries %}
+  <p>Actor{{actorform.id}}</p>
+  {{ actorform.actor_id(value=details_actors[loop.index-1][0]) }}
+  {{ actorform.actor_name.label }} {{ actorform.actor_name(value=details_actors[loop.index-1][1]) }}
+  {{ actorform.character.label }} {{ actorform.character(value=details_actors[loop.index-1][2]) }}
+
+
+
 
   {% endfor %}
 
   <p>New Actor</p>
-  <label for='name'>Name</label>
-  <input id="name-new" name="name-new" type="text">
-  <label for='character'>Character</label>
-  <input id="character-new" name="character-new" type="text">
-  <br>
+  {{ form.new_name.label}} {{ form.new_name(size=20) }}
+  {{ form.new_character.label }} {{ form.new_character(size=20) }}
+
   <input type="submit" value="Update Movie">
 </form>
 
