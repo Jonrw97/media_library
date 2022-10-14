@@ -3,16 +3,14 @@ import mimetypes
 import os
 from os import path
 
-from flask import (
-    Blueprint, flash, g, redirect, render_template, request, session, url_for
-)
-from werkzeug.security import check_password_hash, generate_password_hash
-from werkzeug.utils import secure_filename
-
+import plex.file_media_service as file_media_service
+import plex.movies_das as movies_das
+from flask import (Blueprint, flash, g, redirect, render_template, request,
+                   session, url_for)
 from plex.auth import login_required
 from plex.db import get_db
-import plex.movies_das as movies_das
-import plex.file_media_service as file_media_service
+from werkzeug.security import check_password_hash, generate_password_hash
+from werkzeug.utils import secure_filename
 
 bp = Blueprint('movies', __name__)
 
