@@ -42,6 +42,7 @@ https://miro.com/app/board/uXjVOFF2cpg=/?utm_source=notification&utm_medium=emai
 ## PHASE - feature ideas
 - [ ] Introduce a services layer
 - [ ] From the services layer connect to IMDB to pull down movie and actor information
+- [ ] Populate media libary
 
 ## PHASE 3
 

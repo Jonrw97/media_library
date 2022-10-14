@@ -120,12 +120,36 @@ def delete_actor(actor_id):
 # ====================================================================================================================
 
 def get_movie_with_actors(movie_id):
-    # select movie
-    # for loop select actor where movie_id = movie
-    return None
+    db = get_db()
+    id = movie_id
+    details_movies = db.execute(
+        "SELECT id, movie_title, year, director, file_name FROM movies where id = ?", id).fetchone()
+    details_actors = db.execute(
+        "SELECT id, name, character, movie_id FROM actors WHERE movie_id = ?", id).fetchall()
+    return details_movies, details_actors
 
 
-def update_movie_with_actors(movie_id):
-    # update actors
-    # for loop update actors where id = movie_id
-    return None
+def update_movie_with_actors(update_movie, id, movie_title, year, director, name, character, actor):
+    db = get_db()
+    result = 0
+    error = None
+    try:
+        db.execute("UPDATE actors SET name=?, character=? WHERE id = ?",
+                   (name, character, actor))
+    except db.IntegrityError:
+        error = f"Fail: actor{actor} update unsuccessful."
+        result = 1
+    else:
+        error = f"{movie_title} and its Actors updated successfully."
+
+    if update_movie == result and result == 0:
+        try:
+            db.execute("UPDATE movies SET movie_title=?, year=?, director=? WHERE id=?",
+                       (movie_title, year, director, id))
+        except db.IntegrityError:
+            error = f"Fail: {movie_title} update unsuccessful."
+            result = 1
+        else:
+            error = f"{movie_title} update successful."
+    db.commit()
+    return result, error, id
