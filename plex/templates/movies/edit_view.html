@@ -5,14 +5,14 @@
 
 <form method="post" action="{{ url_for('movies.edit_view',id = details_movies[0], actors = details_actors) }}">
 
-  {{ form.hidden_tag() }}
-  {{ form.movie_title.label }} {{ form.movie_title(size=20, value=details_movies[1]) }}
-  {{ form.year.label }} {{ form.year(size=20, value=details_movies[2]) }}
-  {{ form.director.label }} {{ form.director(size=20, value=details_movies[3]) }}
+  {{ movie_form.hidden_tag() }}
+  {{ movie_form.movie_title.label }} {{ movie_form.movie_title(size=20, value=details_movies[1]) }}
+  {{ movie_form.year.label }} {{ movie_form.year(size=20, value=details_movies[2]) }}
+  {{ movie_form.director.label }} {{ movie_form.director(size=20, value=details_movies[3]) }}
 
 
-  {% for actorform in form.actorsfields.entries %}
-  <p>Actor{{actorform.id}}</p>
+  {% for actorform in movie_form.actorsfields.entries %}
+  <p>Actor {{details_actors[loop.index-1][0]}}</p>
   {{ actorform.actor_id(value=details_actors[loop.index-1][0]) }}
   {{ actorform.actor_name.label }} {{ actorform.actor_name(value=details_actors[loop.index-1][1]) }}
   {{ actorform.character.label }} {{ actorform.character(value=details_actors[loop.index-1][2]) }}
@@ -23,8 +23,8 @@
   {% endfor %}
 
   <p>New Actor</p>
-  {{ form.new_name.label}} {{ form.new_name(size=20) }}
-  {{ form.new_character.label }} {{ form.new_character(size=20) }}
+  {{ actor_form.new_name.label}} {{ actor_form.new_name(size=20) }}
+  {{ actor_form.new_character.label }} {{ actor_form.new_character(size=20) }}
 
   <input type="submit" value="Update Movie">
 </form>

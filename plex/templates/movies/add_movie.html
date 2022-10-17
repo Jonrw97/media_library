@@ -7,11 +7,11 @@
 <form method="post" enctype="multipart/form-data">
 
 
-  {{ form.hidden_tag() }}
-  {{ form.movie_title.label }} {{ form.movie_title(size=20) }}
-  {{ form.year.label }} {{ form.year(size=20) }}
-  {{ form.director.label }} {{ form.director(size=20) }}
-  {{ form.file.lablel }} {{ form.file }}
+
+  {{ movie_form.movie_title.label }} {{ movie_form.movie_title(size=20) }}
+  {{ movie_form.year.label }} {{ movie_form.year(size=20) }}
+  {{ movie_form.director.label }} {{ movie_form.director(size=20) }}
+  {{ movie_form.file.lablel }} {{ movie_form.file }}
 
 
   <input type="submit" value="Add Movie">

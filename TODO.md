@@ -29,12 +29,12 @@ https://miro.com/app/board/uXjVOFF2cpg=/?utm_source=notification&utm_medium=emai
   - [x] Part 1: implement all file services in file_media_service
   - [x] Handle exception in media service
   - [x] Implement a common return pattern from the das layer (i.e. result, error, etc) 
-  - [ ] Part 2: refactor to use the single methods to handle movie + actor updates in one go - 
+  - [x] Part 2: refactor to use the single methods to handle movie + actor updates in one go - 
         so think about how you would pass the movie and actors in one method call and ensure that they are all 
         committed in one go
-- [ ] Use WTForm / with validations - https://flask-wtf.readthedocs.io/en/1.0.x/quickstart/
+- [x] Use WTForm / with validations - https://flask-wtf.readthedocs.io/en/1.0.x/quickstart/
 - [ ] Introduce Flask form validation
-- [ ] Handle child objects (actors) - using WTForm 'field enclosures' to create repeated fields
+- [x] Handle child objects (actors) - using WTForm 'field enclosures' to create repeated fields
 - [ ] Flask tests,  add movie, render libary page, edit view
 - [ ] CSRF
 - [ ] documents

@@ -21,26 +21,20 @@ from plex.db import get_db
 bp = Blueprint('movies', __name__)
 
 
-class AddMovieForm(FlaskForm):
-    movie_title = StringField("Movie Title", validators=[DataRequired()])
-    year = StringField("Year", validators=[DataRequired()])
-    director = StringField("Director", validators=[DataRequired()])
-    file = FileField(validators=[FileRequired()])
-
-
 class ActorForm(FlaskForm):
     actor_name = StringField("Name")
     character = StringField("Character")
     actor_id = HiddenField("id")
+    new_name = StringField("New Name")
+    new_character = StringField("New Character")
 
 
-class EditMovieForm(FlaskForm):
+class MovieForm(FlaskForm):
     movie_title = StringField("Movie Title", validators=[DataRequired()])
     year = StringField("Year", validators=[DataRequired()])
     director = StringField("Director", validators=[DataRequired()])
+    file = FileField(validators=[FileRequired()])
     actorsfields = FieldList(FormField((ActorForm)))
-    new_name = StringField("New Name")
-    new_character = StringField("New Character")
 
 
 @bp.route('/')
@@ -54,19 +48,19 @@ def library():
 @bp.route('/add_movie', methods=('GET', 'POST'))
 @login_required
 def add_movie():
-    form = AddMovieForm()
+    movie_form = MovieForm()
     if request.method == 'POST':
         result, error, mime_type, file_name = file_media_service.save_file(
-            form.file.data)
+            movie_form.file.data)
 
         if result == 0:
             result, error, id = movies_das.add_movie(
-                form.movie_title.data, form.year.data, form.director.data, file_name, mime_type)
+                movie_form.movie_title.data, movie_form.year.data, movie_form.director.data, file_name, mime_type)
 
         flash(error)
         return redirect(url_for('library'))
     else:
-        return render_template('movies/add_movie.html', form=form)
+        return render_template('movies/add_movie.html', movie_form=movie_form)
 
 
 @bp.route('/details_view')
@@ -85,38 +79,38 @@ def details_view():
 @bp.route('/edit_view', methods=('GET', 'POST'))
 @login_required
 def edit_view():
-    form = EditMovieForm()
+    movie_form = MovieForm()
+    actor_form = ActorForm()
     if request.method == 'GET':
         id = request.args['id']
         details_movies, details_actors = movies_das.get_movie_with_actors(id)
         for actor in details_actors:
-            form.actorsfields.append_entry(ActorForm(actor))
+            movie_form.actorsfields.append_entry(ActorForm(actor))
 
     elif request.method == 'POST':
         update_movie = 0
         id = request.args['id']
         details_movies, details_actors = movies_das.get_movie_with_actors(id)
 
-        for actorform in form.actorsfields:
-            #name = request.form[f'name{actor[0]}']
-            #character = request.form[f'character{actor[0]}']
-            actor_id = actor[0]
-            if not form.name.data and not form.character.data:
-                result, error = movies_das.delete_actor(actor_id)
+        for actorform in movie_form.actorsfields:
+
+            if not actorform.actor_name.data and not actorform.character.data:
+                result, error = movies_das.delete_actor(
+                    actorform.actor_id.data, actorform.actor_name.data)
 
             else:
                 result, error, id = movies_das.update_movie_with_actors(
-                    update_movie, id, form.movie_title.data, form.year.data,
-                    form.director.data, form.name.data, form.character.data, actor[0])
+                    update_movie, id, movie_form.movie_title.data, movie_form.year.data,
+                    movie_form.director.data, actorform.actor_name.data, actorform.character.data, actorform.actor_id.data)
 
-        if form.new_name.data and form.new_character.data:
+        if actor_form.new_name.data and actor_form.new_character.data:
             result, error, id = movies_das.add_actor(
-                form.new_name.data, form.new_character.data, id)
+                actor_form.new_name.data, actor_form.new_character.data, id)
 
         flash(error)
         return redirect(url_for('library'))
 
-    return render_template('movies/edit_view.html', details_movies=details_movies, details_actors=details_actors, form=form)
+    return render_template('movies/edit_view.html', details_movies=details_movies, details_actors=details_actors, movie_form=movie_form, actor_form=actor_form)
 
 # update_post
 

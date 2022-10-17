@@ -100,7 +100,7 @@ def update_actor(name, character, actor):
     return result, error, actor
 
 
-def delete_actor(actor_id):
+def delete_actor(actor_id, name):
     db = get_db()
     result = 0
     error = None
@@ -108,10 +108,10 @@ def delete_actor(actor_id):
         db.execute("DELETE FROM actors WHERE id=?", (actor_id,))
         db.commit()
     except db.IntegrityError:
-        error = f"Fail: actor{actor_id} could not be deleted."
+        error = f"Fail: Actor {name} could not be deleted."
         result = 1
     else:
-        error = f"Actor{actor_id} removed succesfully"
+        error = f"Actor {name} removed succesfully"
         return result, error
 
 
@@ -134,8 +134,8 @@ def update_movie_with_actors(update_movie, id, movie_title, year, director, name
     result = 0
     error = None
     try:
-        db.execute("UPDATE actors SET name=?, character=? WHERE id = ?",
-                   (name, character, actor))
+        db.execute("UPDATE actors SET name=?, character=?, movie_id=? WHERE id = ?",
+                   (name, character, id, actor))
     except db.IntegrityError:
         error = f"Fail: actor{actor} update unsuccessful."
         result = 1
