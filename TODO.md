@@ -1,4 +1,5 @@
 # TODO
+
 ## PHASE 1
 
 Use Flask and simple direct dbm libary to persist the data
@@ -14,7 +15,7 @@ https://miro.com/app/board/uXjVOFF2cpg=/?utm_source=notification&utm_medium=emai
 - [x] Edit View - edit
 - [x] Sync Folder File Lister
 - [x] Video Player View (HTML5 video player)
-- [x] Make Sure Every Page Checks the user is logged in 
+- [x] Make Sure Every Page Checks the user is logged in
 - [x] Base layout
 - [x] Use 2 Flask Blueprints
 - [x] Edit movie view - to include actors for editing
@@ -28,18 +29,19 @@ https://miro.com/app/board/uXjVOFF2cpg=/?utm_source=notification&utm_medium=emai
   - [x] Part 1: move all logic into movies_das
   - [x] Part 1: implement all file services in file_media_service
   - [x] Handle exception in media service
-  - [x] Implement a common return pattern from the das layer (i.e. result, error, etc) 
-  - [x] Part 2: refactor to use the single methods to handle movie + actor updates in one go - 
-        so think about how you would pass the movie and actors in one method call and ensure that they are all 
+  - [x] Implement a common return pattern from the das layer (i.e. result, error, etc)
+  - [x] Part 2: refactor to use the single methods to handle movie + actor updates in one go -
+        so think about how you would pass the movie and actors in one method call and ensure that they are all
         committed in one go
 - [x] Use WTForm / with validations - https://flask-wtf.readthedocs.io/en/1.0.x/quickstart/
 - [ ] Introduce Flask form validation
 - [x] Handle child objects (actors) - using WTForm 'field enclosures' to create repeated fields
-- [ ] Flask tests,  add movie, render libary page, edit view
+- [ ] Flask tests, add movie, render libary page, edit view
 - [ ] CSRF
 - [ ] documents
 
 ## PHASE - feature ideas
+
 - [ ] Introduce a services layer
 - [ ] From the services layer connect to IMDB to pull down movie and actor information
 - [ ] Populate media libary
@@ -59,22 +61,15 @@ https://miro.com/app/board/uXjVOFF2cpg=/?utm_source=notification&utm_medium=emai
 ## PHASE 5 - Django?
 
 - [ ] implement python models for entities (movie, actor, user)
-- [ ] Use Flask forms with models 
+- [ ] Use Flask forms with models
 - [ ] Use an ORM
 - [ ] documents
-
-
-
-
-
-
 
 ## PHASE 6
 
 - [ ] HTML CSS design using flexbox layout
 - [ ] add some javasript interactivity TBD
 - [ ] documents
-
 
 ## PHASE X
 
@@ -86,3 +81,8 @@ https://miro.com/app/board/uXjVOFF2cpg=/?utm_source=notification&utm_medium=emai
 - [ ] look up file meta data on api
 - [ ] upload the cover image file
 - [ ] documents
+
+## PHASE Z
+
+- [ ]Build own video controls with javascript and css
+- [ ]Profile themes with bootstrap
