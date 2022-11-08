@@ -34,41 +34,48 @@ https://miro.com/app/board/uXjVOFF2cpg=/?utm_source=notification&utm_medium=emai
         so think about how you would pass the movie and actors in one method call and ensure that they are all
         committed in one go
 - [x] Use WTForm / with validations - https://flask-wtf.readthedocs.io/en/1.0.x/quickstart/
-- [ ] Introduce Flask form validation
 - [x] Handle child objects (actors) - using WTForm 'field enclosures' to create repeated fields
-- [ ] Flask tests, add movie, render libary page, edit view
+
 - [ ] CSRF
 - [ ] documents
 
-## PHASE - feature ideas
+## PHASE
 
-- [ ] Introduce a services layer
-- [ ] From the services layer connect to IMDB to pull down movie and actor information
-- [ ] Populate media libary
+- [ ] introduce bootstrap for new layout
+- [ ] video hosting
+- [ ] create landing page with html 5 video player and poster
+- [ ] use bootstrap and a bootstrap theme
+- [ ] add property video location
+- [ ] contact form with Captcha
 
-## PHASE 3
+## PHASE
+
+- [ ] link to the admin screen(list videos and edit details)
+- [ ] add new fields to movie (released at, description, location, movie type(public, private) )
+- [ ] upload video to (Binary Large OBject) storage
+- [ ] fitler the fields by movie type(personal: title, released at, description, location other: all fields)
+- [ ] Flask tests, setup a movie with a fixture, render the edit page, update the movie title check title correct
+- [ ] Flask test, go to the edit page for the same movie, leave title blank save check validation error
+- [ ] acces admin edit page without being logged in
+- [ ] run tests auto on push(ci/cd)
+
+## PHASE random ideas for Jons portfolio
+
+- [ ] multiple resolutions of videos
+- [ ] own video player controls
+- [ ] mailchimp mailing list notify new videos
+
+## PHASE
 
 - [ ] Change the relationship between actors and movies so that actors can be in multiple movies
 - [ ] add and actors management module to the UI
 - [ ] documents
 
-## PHASE 4
-
-- [ ] Deploy to home server by installing python, virtual enviroment, flask and run flask on the server
-- [ ] Securing the web application
-- [ ] documents
-
-## PHASE 5 - Django?
+## PHASE - Django?
 
 - [ ] implement python models for entities (movie, actor, user)
 - [ ] Use Flask forms with models
 - [ ] Use an ORM
-- [ ] documents
-
-## PHASE 6
-
-- [ ] HTML CSS design using flexbox layout
-- [ ] add some javasript interactivity TBD
 - [ ] documents
 
 ## PHASE X
@@ -80,6 +87,10 @@ https://miro.com/app/board/uXjVOFF2cpg=/?utm_source=notification&utm_medium=emai
 - [ ] Auto find new files in the sync folder
 - [ ] look up file meta data on api
 - [ ] upload the cover image file
+- [ ] Deploy to home server by installing python, virtual enviroment, flask and run flask on the server
+- [ ] Introduce a services layer
+- [ ] From the services layer connect to IMDB to pull down movie and actor information
+- [ ] Populate media libary
 - [ ] documents
 
 ## PHASE Z
