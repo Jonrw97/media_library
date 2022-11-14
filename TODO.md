@@ -25,7 +25,7 @@ https://miro.com/app/board/uXjVOFF2cpg=/?utm_source=notification&utm_medium=emai
 
 ## PHASE 2
 
-- [ ] Refactor Flask controller to have no dependencies on db.py i.e. introduce a data access layer
+- [x] Refactor Flask controller to have no dependencies on db.py i.e. introduce a data access layer
   - [x] Part 1: move all logic into movies_das
   - [x] Part 1: implement all file services in file_media_service
   - [x] Handle exception in media service
@@ -52,12 +52,13 @@ https://miro.com/app/board/uXjVOFF2cpg=/?utm_source=notification&utm_medium=emai
 
 - [ ] link to the admin screen(list videos and edit details)
 - [ ] add new fields to movie (released at, description, location, movie type(public, private) )
-- [ ] upload video to (Binary Large OBject) storage
+- [ ] upload video to (Binary Large OBject) storage !Richard's AWS Account!
 - [ ] fitler the fields by movie type(personal: title, released at, description, location other: all fields)
 - [ ] Flask tests, setup a movie with a fixture, render the edit page, update the movie title check title correct
 - [ ] Flask test, go to the edit page for the same movie, leave title blank save check validation error
 - [ ] acces admin edit page without being logged in
 - [ ] run tests auto on push(ci/cd)
+- [ ] use postgres instead of sqlite
 
 ## PHASE random ideas for Jons portfolio
 
