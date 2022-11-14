@@ -1,10 +1,12 @@
 # media_library
-# to start the app
-## tell flask which folder to access 
-export FLASK_APP=plex
-## to run in development mode
-export FLASK_ENV=development
-## to initilize database
-flask init-db
-## run app
-flask run
+
+# To start the app
+
+## Run
+
+<your shell name here> startup.sh
+
+If this doesn't work immediatly you will need to make it executable
+
+Run:
+chmod u+x startup.sh
