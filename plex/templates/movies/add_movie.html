@@ -1,20 +1,33 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block content %}
+<div class="card mb-3">
+  <h2 class="card-header">Add Movie</h2>
 
-{% block content %}
-
-<h2>Add Movie</h2>
-
-<form method="post" enctype="multipart/form-data">
-
-
-
-  {{ movie_form.movie_title.label }} {{ movie_form.movie_title(size=20) }}
-  {{ movie_form.year.label }} {{ movie_form.year(size=20) }}
-  {{ movie_form.director.label }} {{ movie_form.director(size=20) }}
-  {{ movie_form.file.lablel }} {{ movie_form.file }}
-
-
-  <input type="submit" value="Add Movie">
-</form>
+  <form method="post" enctype="multipart/form-data">
+    <div class="container card-body">
+      <div class="row">
+        <div class="col col-6 label">{{ movie_form.movie_title.label }}</div>
+        <div class="col col-6">{{ movie_form.movie_title(class_="form-control",size=50) }}</div>
+      </div>
+      <div class="row">
+        <div class="col col-6 label">{{ movie_form.year.label }}</div>
+        <div class="col col-6">{{ movie_form.year(class_="form-control",size=50) }}</div>
+      </div>
+      <div class="row">
+        <div class="col col-6 label">{{ movie_form.director.label }}</div>
+        <div class="col col-6">{{ movie_form.director(class_="form-control",size=50) }}</div>
+      </div>
+      <div class="row">
+        <div class="col col-6 label">{{ movie_form.file.lablel }}</div>
+        <div class="col col-6">{{ movie_form.file }}</div>
+      </div>
+      <div class="row">
+        <div class="col-6 label"></div>
+        <div class="col-6">
+          <input type="submit" class="btn btn-primary" value="Add Movie" />
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
 
 {% endblock %}

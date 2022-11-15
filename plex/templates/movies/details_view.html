@@ -1,17 +1,24 @@
-{% extends 'base.html' %}
-
-{% block content %}
-<h2>Details View</h2>
-
-<p>Movie Title: {{ details_movies[1] }}</p>
-<p>Year: {{ details_movies[2] }}</p>
-<p>Director: {{ details_movies[3] }}</p>
-<p>Actors</p>
-{% for actor in details_actors %}   
-        <p>{{actor[1]}} as {{actor[2]}}</p>
-{% endfor %}
-<p><a href="{{ url_for('movies.video_player', file_name=details_movies[4]) }}">Play</a></p>
-<p><a href="{{ url_for('movies.edit_view', id=details_movies[0]) }}">Edit</a></p>
-<a href="{{ url_for('movies.library') }}">Library</a>
+{% extends 'base.html' %} {% block content %}
+<div class="card mb-3">
+  <h3 class="card-header">Details View</h3>
+  <div class="card-body details-movie">
+    <h5 class="card-title">{{ details_movies[1] }}</h5>
+    <h6 class="card-subtitle text-muted">{{ details_movies[2] }}</h6>
+    <h6 class="card-subtitle text-muted">Directed By {{ details_movies[3] }}</h6>
+  </div>
+  <div class="card-body details-actor">
+    <h5 class="card-title">Actors</h5>
+  </div>
+  <ul class="list-group list-group-flush"></ul>
+  {% for actor in details_actors %}
+    <li class="list-group-item">{{actor[1]}} as {{actor[2]}}</li>
+    {% endfor %}
+  </ul>
+  <div class="card-body">
+        <a class="btn btn-primary" href="{{ url_for('movies.video_player', file_name=details_movies[4]) }}">Play</a>
+        <a class="btn btn-secondary" href="{{ url_for('movies.edit_view', id=details_movies[0]) }}">Edit</a>
+  </div>
+  <div class="card-footer"><a class="btn btn-secondary" href="{{ url_for('movies.library') }}">Library</a></div>
+</div>
 
 {% endblock %}

@@ -1,34 +1,70 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block content %}
+<div class="card mb-3">
+  <h2 class="card-header">Edit View</h2>
 
-{% block content %}
-<h2>Edit View</h2>
+  <form
+    method="post"
+    action="{{ url_for('movies.edit_view',id = details_movies[0], actors = details_actors) }}"
+  >
+    <div class="container card-body">
+      <div class="row">
+        {{ movie_form.hidden_tag() }}
+        <div class="col col-6 label">{{ movie_form.movie_title.label }}</div>
+        <div class="col col-6">
+          {{ movie_form.movie_title(class_="form-control", size=50, value=details_movies[1]) }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col col-6 label">{{ movie_form.year.label }}</div>
+        <div class="col col-6">
+          {{ movie_form.year(class_="form-control", size=50, value=details_movies[2])}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col col-6 label">{{ movie_form.director.label }}</div>
+        <div class="col col-6">
+          {{ movie_form.director(class_="form-control", size=50, value=details_movies[3]) }}
+        </div>
+      </div>
+    </div>
+    <h4 class="card-header">Actors</h4>
+    <div class="container card-body">
+      {% for actorform in movie_form.actorsfields.entries %}
+      <p>Actor {{details_actors[loop.index-1][0]}}</p>
+      {{ actorform.actor_id(value=details_actors[loop.index-1][0]) }}
+      <div class="row">
+        <div class="col col-6 label actor">{{ actorform.actor_name.label }}</div>
+        <div class="col col-6">
+          {{actorform.actor_name(class_="form-control", value=details_actors[loop.index-1][1]) }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col col-6 label actor">{{ actorform.character.label }}</div>
+        <div class="col col-6">
+          {{actorform.character(class_="form-control", value=details_actors[loop.index-1][2]) }}
+        </div>
+      </div>
+      {% endfor %}
 
-<form method="post" action="{{ url_for('movies.edit_view',id = details_movies[0], actors = details_actors) }}">
-
-  {{ movie_form.hidden_tag() }}
-  {{ movie_form.movie_title.label }} {{ movie_form.movie_title(size=20, value=details_movies[1]) }}
-  {{ movie_form.year.label }} {{ movie_form.year(size=20, value=details_movies[2]) }}
-  {{ movie_form.director.label }} {{ movie_form.director(size=20, value=details_movies[3]) }}
-
-
-  {% for actorform in movie_form.actorsfields.entries %}
-  <p>Actor {{details_actors[loop.index-1][0]}}</p>
-  {{ actorform.actor_id(value=details_actors[loop.index-1][0]) }}
-  {{ actorform.actor_name.label }} {{ actorform.actor_name(value=details_actors[loop.index-1][1]) }}
-  {{ actorform.character.label }} {{ actorform.character(value=details_actors[loop.index-1][2]) }}
-
-
-
-
-  {% endfor %}
-
-  <p>New Actor</p>
-  {{ actor_form.new_name.label}} {{ actor_form.new_name(size=20) }}
-  {{ actor_form.new_character.label }} {{ actor_form.new_character(size=20) }}
-
-  <input type="submit" value="Update Movie">
-</form>
-
-<a href="{{ url_for('movies.library') }}">Library</a>
-
+      <p>New Actor</p>
+      <div class="row">
+        <div class="col col-6 label actor">{{ actor_form.new_name.label}}</div>
+        <div class="col col-6">{{ actor_form.new_name(class_="form-control", size=50)}}</div>
+      </div>
+      <div class="row">
+        <div class="col col-6 label actor">{{ actor_form.new_character.label}}</div>
+        <div class="col col-6">{{actor_form.new_character(class_="form-control", size=50)}}</div>
+      </div>
+      <div class="row">
+        <div class="col-6 label"></div>
+        <div class="col-6">
+          <input type="submit" class="btn btn-primary" value="Update Movie" />
+        </div>
+      </div>
+    </div>
+  </form>
+  <div class="card-footer">
+    <a class="btn btn-secondary" href="{{ url_for('movies.library') }}">Library</a>
+  </div>
+</div>
 {% endblock %}

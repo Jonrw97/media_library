@@ -41,7 +41,7 @@ https://miro.com/app/board/uXjVOFF2cpg=/?utm_source=notification&utm_medium=emai
 
 ## PHASE
 
-- [ ] introduce bootstrap for new layout
+- [x] introduce bootstrap for new layout
 - [ ] video hosting
 - [ ] create landing page with html 5 video player and poster
 - [ ] use bootstrap and a bootstrap theme
