@@ -1,0 +1,62 @@
+{% extends 'base.html' %} {% block content %}
+<h2>Contact From</h2>
+<div class="container">
+  <div class="row">
+    <div class="col-xl-8">
+      <form id="contact-form" method="post" enctype="multipart/form-data">
+        <div class="messages"></div>
+
+        <div class="controls">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                {{ form.firstname.label }}<br />
+                {{ form.firstname(class_="form-control", placeholder="Please enter your firstname *",
+                required="required", **{"data-error":"Firstname is required."})}}
+                <div class="help-block with-errors"></div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                {{ form.lastname.label }}<br />
+                {{form.lastname(class="form-control", placeholder="Please enter your lastname *",
+                required="required", **{"data-error":"Firstname is required."})}}
+                <div class="help-block with-errors"></div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                {{ form.email.label }}<br />
+                {{ form.email(class="form-control", placeholder="Please enter your email *",
+                required="required", **{"data-error":"Firstname is required."})}}
+                <div class="help-block with-errors"></div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                {{ form.phone.label }}<br />
+                {{ form.phone(class="form-control", placeholder="Please enter your phone")}}
+                <div class="help-block with-errors"></div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            {{ form.message.label }}<br />
+            {{ form.message(class="form-control", placeholder="Message for me *", rows="4",
+            required="required", **{"data-error":"Firstname is required."})}}
+            <div class="help-block with-errors"></div>
+          </div>
+
+          <!-- ReCaptcha -->
+
+          <input type="submit" class="btn btn-primary btn-send" value="Send message" />
+
+          <p class="text-muted"><strong>*</strong> These fields are required. Contact form template by</p>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

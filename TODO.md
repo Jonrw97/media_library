@@ -50,7 +50,7 @@ https://miro.com/app/board/uXjVOFF2cpg=/?utm_source=notification&utm_medium=emai
 
 ## PHASE
 
-- [ ] link to the admin screen(list videos and edit details)
+- [x] link to the admin screen(list videos and edit details)
 - [x] add new fields to movie (released at, description, location, movie type(public, private) )
 - [x] upload video to (Binary Large OBject) storage !Richard's AWS Account!
 - [x] fitler the fields by movie type(personal: title, released at, description, location other: all fields)

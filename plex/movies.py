@@ -40,10 +40,9 @@ class MovieForm(FlaskForm):
 def landing():
 
     media = movies_das.get_portfolio()
-    print(media)
     media1 = media[0]
     media2 = media[1]
-    media3 = media [2]
+    media3 = media[2]
     return render_template('portfolio/landing.html', media1=media1, media2=media2, media3=media3)
 
 @bp.route('/library')

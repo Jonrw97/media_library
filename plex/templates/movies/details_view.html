@@ -6,6 +6,12 @@
     <h6 class="card-subtitle text-muted">{{ details_movies[2] }}</h6>
     <h6 class="card-subtitle text-muted">Directed By {{ details_movies[3] }}</h6>
   </div>
+    {% if details_movies[4] == "portfolio" %}
+    <div class="card-body details-movie">
+    <h6 class="card-subtitle text-muted">Filmed At {{ details_movies[5] }}</h6>
+    <h6 class="card-subtitle text-muted"> {{ details_movies[6] }}</h6>
+  </div>
+  {% else %}
   <div class="card-body details-actor">
     <h5 class="card-title">Actors</h5>
   </div>
@@ -14,6 +20,7 @@
     <li class="list-group-item">{{actor[1]}} as {{actor[2]}}</li>
     {% endfor %}
   </ul>
+  {% endif %}
   <div class="card-body">
         <a class="btn btn-primary" href="{{ url_for('movies.video_player', id=details_movies[0]) }}">Play</a>
         <a class="btn btn-secondary" href="{{ url_for('movies.edit_view', id=details_movies[0]) }}">Edit</a>
@@ -22,4 +29,3 @@
 </div>
 
 {% endblock %}
-

@@ -23,13 +23,15 @@
     <ul class="navbar-nav me-auto">
       {% if g.user %}
       <li class="nav-item"><span>{{ g.user['username'] }}</span></li>
+      <li class="nav-item"><a href="{{ url_for('auth.register') }}">Register</a></li>
       <li class="nav-item"><a href="{{ url_for('auth.logout') }}">Log Out</a> {% else %}</li>
 
-      <li class="nav-item"><a href="{{ url_for('auth.register') }}">Register</a></li>
+      
       <li class="nav-item">
-        <a href="{{ url_for('auth.login') }}">Log In</a>
+        <a href="{{ url_for('auth.login') }}">Admin</a>
         {% endif %}
       </li>
+      <li class="nav-item"><a href="{{ url_for('contact.contact') }}">Contact</a></li>
     </ul>
   
 </nav>

@@ -82,7 +82,7 @@ def get_movie_with_actors(movie_id):
     db = get_db()
     id = movie_id
     details_movies = db.execute(
-        "SELECT id, movie_title, year, director, file_name FROM movies where id = ?", id).fetchone()
+        "SELECT id, movie_title, year, director, movie_type, location, description FROM movies where id = ?", id).fetchone()
     details_actors = db.execute(
         "SELECT id, name, character, movie_id FROM actors WHERE movie_id = ?", id).fetchall()
     return details_movies, details_actors

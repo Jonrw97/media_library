@@ -33,5 +33,7 @@ def create_app(test_config=None):
     app.register_blueprint(movies.bp)
     app.add_url_rule('/', endpoint='landing')
     app.add_url_rule('/library', endpoint='library')
+    from . import contact
+    app.register_blueprint(contact.bp)
 
     return app
