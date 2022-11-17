@@ -31,6 +31,7 @@ def create_app(test_config=None):
     app.register_blueprint(auth.bp)
     from . import movies
     app.register_blueprint(movies.bp)
-    app.add_url_rule('/', endpoint='library')
+    app.add_url_rule('/', endpoint='landing')
+    app.add_url_rule('/library', endpoint='library')
 
     return app

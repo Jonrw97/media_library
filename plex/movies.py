@@ -36,8 +36,17 @@ class MovieForm(FlaskForm):
     file = FileField(validators=[FileRequired()])
     actorsfields = FieldList(FormField((ActorForm)))
 
-
 @bp.route('/')
+def landing():
+
+    media = movies_das.get_portfolio()
+    print(media)
+    media1 = media[0]
+    media2 = media[1]
+    media3 = media [2]
+    return render_template('portfolio/landing.html', media1=media1, media2=media2, media3=media3)
+
+@bp.route('/library')
 @login_required
 def library():
 
@@ -120,10 +129,11 @@ def edit_view():
 def video_player():
 
     if request.method == 'GET':
-        file_name = request.args['file_name']
-        print("video_player", file_name)
-        return render_template('movies/video_player.html', file_name=file_name)
+        id = request.args['id'] 
+        media = movies_das.get_file(id)
+        print(media[1], media[2])
+        return render_template('movies/video_player.html', media=media)
 
     if request.method == 'POST':
 
-        return render_template('movies/video_player.html', file_name=file_name)
+        return render_template('movies/video_player.html', media=media)

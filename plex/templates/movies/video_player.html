@@ -3,9 +3,11 @@
 <h2>Video Player</h2>
 
 <video controls width="930px" height="500px" ;>
-  <source src="/static/sync/{{ file_name }}" type="video/mp4" />
-
-  Sorry, your browser doesn't support embedded videos.
+  {% if media[2] == "portfolio"%}
+  <source src="{{ media[1] }}" type="video/mp4" />
+  {% else %}
+  <source src="/static/sync/{{ media[1] }}" type="video/mp4" />
+  {% endif %} Sorry, your browser doesn't support embedded videos.
 </video>
 <br />
 <a class="btn btn-secondary" href="{{ url_for('movies.library') }}">Library</a>

@@ -61,6 +61,7 @@ input.danger {
 }
 
 video {
+  display: block;
   margin: 20px auto;
   border: solid 1 px;
 }
@@ -101,7 +102,18 @@ video {
   padding-left: 30px;
 }
 
-.card-header {
+.header-padded {
   padding-left: 155px;
   margin-left: 0px;
+}
+
+.card {
+  margin: 0 auto;
+}
+
+.col-xl-12 {
+  padding-top: 35px;
+}
+.col-xl-6 {
+  padding-top: 25px;
 }

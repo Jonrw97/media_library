@@ -1,6 +1,6 @@
 {% extends 'base.html' %} {% block content %}
 <div class="card mb-3">
-  <h3 class="card-header">Details View</h3>
+  <h3 class="card-header header-padded">Details View</h3>
   <div class="card-body details-movie">
     <h5 class="card-title">{{ details_movies[1] }}</h5>
     <h6 class="card-subtitle text-muted">{{ details_movies[2] }}</h6>
@@ -15,10 +15,11 @@
     {% endfor %}
   </ul>
   <div class="card-body">
-        <a class="btn btn-primary" href="{{ url_for('movies.video_player', file_name=details_movies[4]) }}">Play</a>
+        <a class="btn btn-primary" href="{{ url_for('movies.video_player', id=details_movies[0]) }}">Play</a>
         <a class="btn btn-secondary" href="{{ url_for('movies.edit_view', id=details_movies[0]) }}">Edit</a>
   </div>
   <div class="card-footer"><a class="btn btn-secondary" href="{{ url_for('movies.library') }}">Library</a></div>
 </div>
 
 {% endblock %}
+

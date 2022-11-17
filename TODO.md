@@ -42,18 +42,18 @@ https://miro.com/app/board/uXjVOFF2cpg=/?utm_source=notification&utm_medium=emai
 ## PHASE
 
 - [x] introduce bootstrap for new layout
-- [ ] video hosting
-- [ ] create landing page with html 5 video player and poster
-- [ ] use bootstrap and a bootstrap theme
-- [ ] add property video location
+- [x] video hosting
+- [x] create landing page with html 5 video player and poster
+- [x] use bootstrap and a bootstrap theme
+- [x] add property video location
 - [ ] contact form with Captcha
 
 ## PHASE
 
 - [ ] link to the admin screen(list videos and edit details)
-- [ ] add new fields to movie (released at, description, location, movie type(public, private) )
-- [ ] upload video to (Binary Large OBject) storage !Richard's AWS Account!
-- [ ] fitler the fields by movie type(personal: title, released at, description, location other: all fields)
+- [x] add new fields to movie (released at, description, location, movie type(public, private) )
+- [x] upload video to (Binary Large OBject) storage !Richard's AWS Account!
+- [x] fitler the fields by movie type(personal: title, released at, description, location other: all fields)
 - [ ] Flask tests, setup a movie with a fixture, render the edit page, update the movie title check title correct
 - [ ] Flask test, go to the edit page for the same movie, leave title blank save check validation error
 - [ ] acces admin edit page without being logged in
