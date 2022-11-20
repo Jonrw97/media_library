@@ -26,7 +26,26 @@
           {{ movie_form.director(class_="form-control", size=50, value=details_movies[3]) }}
         </div>
       </div>
+      <div class="row">
+        <div class="col col-6 label">{{ movie_form.movie_type.label }}</div>
+        <div class="col col-6">{{ movie_form.movie_type(class_="form-control") }}</div>
+      </div>
+      {% if details_movies[4] == "portfolio" %}
+      <div class="row">
+        <div class="col col-6 label">{{ movie_form.location.label }}</div>
+        <div class="col col-6">
+          {{ movie_form.location(class_="form-control", size=50, value=details_movies[5]) }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col col-6 label">{{ movie_form.description.label }}</div>
+        <div class="col col-6">
+          {{ movie_form.description(class_="form-control", rows=4) }}
+        </div>
+      </div>
     </div>
+    {% else %}
+  </div>
     <h4 class="card-header">Actors</h4>
     <div class="container card-body">
       {% for actorform in movie_form.actorsfields.entries %}
@@ -55,6 +74,7 @@
         <div class="col col-6 label actor">{{ actor_form.new_character.label}}</div>
         <div class="col col-6">{{actor_form.new_character(class_="form-control", size=50)}}</div>
       </div>
+      {% endif %}
       <div class="row">
         <div class="col-6 label"></div>
         <div class="col-6">

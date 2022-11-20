@@ -5,13 +5,12 @@
     <h5 class="card-title">{{ details_movies[1] }}</h5>
     <h6 class="card-subtitle text-muted">{{ details_movies[2] }}</h6>
     <h6 class="card-subtitle text-muted">Directed By {{ details_movies[3] }}</h6>
-  </div>
     {% if details_movies[4] == "portfolio" %}
-    <div class="card-body details-movie">
-    <h6 class="card-subtitle text-muted">Filmed At {{ details_movies[5] }}</h6>
-    <h6 class="card-subtitle text-muted"> {{ details_movies[6] }}</h6>
+      <h6 class="card-subtitle text-muted">Filmed At {{ details_movies[5] }}</h6>
+      <h6 class="card-subtitle text-muted"> {{ details_movies[6] }}</h6>
   </div>
   {% else %}
+  </div>
   <div class="card-body details-actor">
     <h5 class="card-title">Actors</h5>
   </div>

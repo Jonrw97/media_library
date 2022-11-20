@@ -46,7 +46,7 @@ https://miro.com/app/board/uXjVOFF2cpg=/?utm_source=notification&utm_medium=emai
 - [x] create landing page with html 5 video player and poster
 - [x] use bootstrap and a bootstrap theme
 - [x] add property video location
-- [ ] contact form with Captcha
+- [x] contact form with Captcha
 
 ## PHASE
 
