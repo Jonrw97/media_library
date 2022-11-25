@@ -60,6 +60,14 @@ https://miro.com/app/board/uXjVOFF2cpg=/?utm_source=notification&utm_medium=emai
 - [ ] run tests auto on push(ci/cd)
 - [ ] use postgres instead of sqlite
 
+## PHASE Tags And Searching
+
+- [ ] add models to support tags
+- [ ] update ui to attached a tag to a predefined list
+- [ ] create search function to show tags on a click show all relevant videos
+- [ ] create a search function which searches within the fields of movies
+
+
 ## PHASE random ideas for Jons portfolio
 
 - [ ] multiple resolutions of videos
@@ -77,6 +85,7 @@ https://miro.com/app/board/uXjVOFF2cpg=/?utm_source=notification&utm_medium=emai
 - [ ] implement python models for entities (movie, actor, user)
 - [ ] Use Flask forms with models
 - [ ] Use an ORM
+- [ ] Introduce migration(Alter tables add coloums)
 - [ ] documents
 
 ## PHASE X
