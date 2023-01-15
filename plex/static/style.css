@@ -66,8 +66,7 @@ input.danger {
 
 video {
   display: block;
-  margin: 20px auto;
-  border: solid 1 px;
+  margin: auto;
 }
 
 .flash {
@@ -112,12 +111,22 @@ video {
 }
 
 .card {
-  margin: 0 auto;
+  margin: auto;
 }
 
 .col-xl-12 {
-  padding-top: 35px;
+  padding-top: 40px;
+  padding-bottom: 20px;
 }
 .col-xl-6 {
-  padding-top: 25px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.featured {
+  padding-bottom: 15px;
+}
+
+.description {
+  padding-top: 60px;
 }

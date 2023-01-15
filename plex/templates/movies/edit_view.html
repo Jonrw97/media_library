@@ -30,6 +30,14 @@
         <div class="col col-6 label">{{ movie_form.movie_type.label }}</div>
         <div class="col col-6">{{ movie_form.movie_type(class_="form-control") }}</div>
       </div>
+      <div class="row">
+        <div class="col col-6 label">{{ movie_form.publish.label }}</div>
+        <div class="col col-6">{{ movie_form.publish }}</div>
+      </div>
+      <div class="row">
+        <div class="col col-6 label">{{ movie_form.featured.label }}</div>
+        <div class="col col-6">{{ movie_form.featured }}</div>
+      </div>
       {% if details_movies[4] == "portfolio" %}
       <div class="row">
         <div class="col col-6 label">{{ movie_form.location.label }}</div>

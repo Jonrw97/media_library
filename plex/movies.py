@@ -25,6 +25,7 @@ from wtforms import (
     StringField,
     SelectField,
     TextAreaField,
+    BooleanField,
 )
 from wtforms.validators import DataRequired
 
@@ -48,10 +49,13 @@ class MovieForm(FlaskForm):
     movie_title = StringField("Movie Title", validators=[DataRequired()])
     year = StringField("Year", validators=[DataRequired()])
     director = StringField("Director", validators=[DataRequired()])
-    file = FileField(validators=[FileRequired()])
+    # file = FileField(validators=[FileRequired()])
+    file = StringField("File URL", validators=[DataRequired()])
     movie_type = SelectField(label="Movie Type", choices=["portfolio", "other"])
     location = StringField("Location", validators=[DataRequired()])
     description = TextAreaField("Description", validators=[DataRequired()])
+    publish = BooleanField("Publish")
+    featured = BooleanField("Featured")
 
     actorsfields = FieldList(FormField((ActorForm)))
 
@@ -59,12 +63,11 @@ class MovieForm(FlaskForm):
 @bp.route("/")
 def landing():
 
-    media = movies_das.get_portfolio()
-    media1 = media[0]
-    media2 = media[1]
-    media3 = media[2]
+    details_media, featured_media = movies_das.get_portfolio()
     return render_template(
-        "portfolio/landing.html", media1=media1, media2=media2, media3=media3
+        "portfolio/landing.html",
+        details_media=details_media,
+        featured_media=featured_media,
     )
 
 
@@ -81,17 +84,20 @@ def library():
 def add_movie():
     movie_form = MovieForm()
     if request.method == "POST":
-        result, error, mime_type, file_name = file_media_service.save_file(
-            movie_form.file.data
-        )
+        result = 0
+        # result, error, mime_type, file_name = file_media_service.save_file(
+        #     movie_form.file.data
+        # )
+
         if result == 0:
             result, error, id = movies_das.add_movie(
                 movie_form.movie_title.data,
                 movie_form.year.data,
                 movie_form.director.data,
-                file_name,
-                mime_type,
+                movie_form.file.data,
                 movie_form.movie_type.data,
+                int(movie_form.publish.data),
+                int(movie_form.featured.data),
             )
 
         flash(error)
@@ -136,41 +142,32 @@ def edit_view():
         update_movie = 0
         id = request.args["id"]
         details_movies, details_actors = movies_das.get_movie_with_actors(id)
-
-        if details_movies[4] == "portfolio":
-            result, error, id = movies_das.update_movie(
-                id,
-                movie_form.movie_title.data,
-                movie_form.year.data,
-                movie_form.director.data,
-                movie_form.movie_type.data,
-                movie_form.location.data,
-                movie_form.description.data,
-            )
+        result, error, id = movies_das.update_movie(
+            id,
+            movie_form.movie_title.data,
+            movie_form.year.data,
+            movie_form.director.data,
+            movie_form.movie_type.data,
+            movie_form.location.data,
+            movie_form.description.data,
+            int(movie_form.publish.data),
+            int(movie_form.featured.data),
+        )
 
         for actorform in movie_form.actorsfields:
-
             if not actorform.actor_name.data and not actorform.character.data:
                 result, error = movies_das.delete_actor(
                     actorform.actor_id.data, actorform.actor_name.data
                 )
-
-            else:
-                result, error, id = movies_das.update_movie_with_actors(
-                    id,
-                    movie_form.movie_title.data,
-                    movie_form.year.data,
-                    movie_form.director.data,
-                    movie_form.movie_type.data,
-                    actorform.actor_name.data,
-                    actorform.character.data,
-                    actorform.actor_id.data,
-                )
-
-        if actor_form.new_name.data and actor_form.new_character.data:
-            result, error, id = movies_das.add_actor(
-                actor_form.new_name.data, actor_form.new_character.data, id
+            result, error, id = movies_das.update_actor(
+                actorform.actor_name.data,
+                actorform.character.data,
+                actorform.actor_id.data,
             )
+            if actor_form.new_name.data and actor_form.new_character.data:
+                result, error, id = movies_das.add_actor(
+                    actor_form.new_name.data, actor_form.new_character.data, id
+                )
 
         flash(error)
         return redirect(url_for("library"))
@@ -194,7 +191,6 @@ def video_player():
     if request.method == "GET":
         id = request.args["id"]
         media = movies_das.get_file(id)
-        print(media[1], media[2])
         return render_template("movies/video_player.html", media=media)
 
     if request.method == "POST":

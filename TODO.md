@@ -54,19 +54,22 @@ https://miro.com/app/board/uXjVOFF2cpg=/?utm_source=notification&utm_medium=emai
 - [x] add new fields to movie (released at, description, location, movie type(public, private) )
 - [x] upload video to (Binary Large OBject) storage !Richard's AWS Account!
 - [x] fitler the fields by movie type(personal: title, released at, description, location other: all fields)
+- [x] landing show one featured video and order others by date filmed
+- [ ] video upload change to url
+- [ ] add enum for hosting type
+- [x] add flag coloum for publishing
 - [ ] Flask tests, setup a movie with a fixture, render the edit page, update the movie title check title correct
 - [ ] Flask test, go to the edit page for the same movie, leave title blank save check validation error
 - [ ] acces admin edit page without being logged in
 - [ ] run tests auto on push(ci/cd)
 - [ ] use postgres instead of sqlite
 
-## PHASE Tags And Searching
+## PHASE Tags And Searching with ORM
 
 - [ ] add models to support tags
 - [ ] update ui to attached a tag to a predefined list
 - [ ] create search function to show tags on a click show all relevant videos
 - [ ] create a search function which searches within the fields of movies
-
 
 ## PHASE random ideas for Jons portfolio
 

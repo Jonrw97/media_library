@@ -1,47 +1,39 @@
 {% extends 'base.html' %} {% block content %}
 <div class="container">
+  {% for f_media in featured_media %}
   <div class="row">
     <div class="col col-xl-12">
-      <video height="405px" width="720px" controls>
-        <source src="{{ media1[1] }}" type="video/mp4" />
+      <video class="featured" height="405px" width="720px" controls>
+        <source src="{{ f_media[1] }}" type="video/mp4" />
         Sorry, your browser doesn't support embedded videos.
       </video>
-      <div class="card border-primary mb-3" style="max-width: 20rem">
-        <div class="card-header">{{media1[0]}}</div>
+      <div class="card border-primary" style="max-width: 20rem">
+        <div class="card-header">{{f_media[0]}}</div>
         <div class="card-body">
-          <p class="card-text">Filmed at {{media1[2]}}</p>
-          <p class="card-text">{{media1[3]}}</p>
+          <p class="card-text">Filmed at {{f_media[2]}}</p>
+          <p class="card-text">{{f_media[3]}}</p>
         </div>
       </div>
     </div>
   </div>
+  {% endfor %} {% for media in details_media %}
   <div class="row">
     <div class="col col-xl-6">
       <video height="250px" width="450px" controls>
-        <source src="{{ media2[1] }}" type="video/mp4" />
+        <source src="{{ media[1] }}" type="video/mp4" />
         Sorry, your browser doesn't support embedded videos.
       </video>
-      <div class="card border-primary mb-3" style="max-width: 20rem">
-        <div class="card-header">{{media2[0]}}</div>
-        <div class="card-body">
-          <p class="card-text">Filmed at {{media2[2]}}</p>
-          <p class="card-text">{{media2[3]}}</p>
-        </div>
-      </div>
     </div>
-    <div class="col col-xl-6">
-      <video height="250px" width="450px" controls>
-        <source src="{{ media3[1] }}" type="video/mp4" />
-        Sorry, your browser doesn't support embedded videos.
-      </video>
-      <div class="card border-primary mb-3" style="max-width: 20rem">
-        <div class="card-header">{{media3[0]}}</div>
+    <div class="col col-xl-6 description">
+      <div class="card border-secondary" style="max-width: 30rem">
+        <div class="card-header">{{media[0]}}</div>
         <div class="card-body">
-          <p class="card-text">Filmed at {{media3[2]}}</p>
-          <p class="card-text">{{media3[3]}}</p>
+          <p class="card-text">Filmed at {{media[2]}}</p>
+          <p class="card-text">{{media[3]}}</p>
         </div>
       </div>
     </div>
   </div>
+  {% endfor %}
 </div>
 {% endblock %}
