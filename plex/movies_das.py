@@ -3,19 +3,23 @@ from plex.db import get_db
 
 
 def add_actor(new_name, new_character, movie_id):
-    db = get_db()
+    db, cur = get_db()
     result = 0
     error = None
     try:
-        db.execute(
-            "INSERT INTO actors (name, character, movie_id) VALUES (?,?,?)",
+        cur.execute(
+            "INSERT INTO actors (name, character, movie_id) VALUES (%s, %s, %s)",
             (new_name, new_character, movie_id),
         )
         db.commit()
+        cur.close()
+        db.close()
     except db.IntegrityError:
         error = f"Fail: Actor could not be added."
         result = 1
-    else:
+    # except:
+
+    finally:
         error = "Actor added."
         result = 0
     return result, error, movie_id
@@ -24,12 +28,12 @@ def add_actor(new_name, new_character, movie_id):
 def add_movie(movie_title, year, director, file_name, movie_type, publish, featured):
     mime_tuple = mimetypes.guess_type(file_name)
     mime_type, mime_encoding = mime_tuple
-    db = get_db()
+    db, cur = get_db()
     result = 0
     error = None
     try:
-        db.execute(
-            "INSERT INTO movies (movie_title, year, director, file_name, mime_type, movie_type, publish, featured) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+        cur.execute(
+            "INSERT INTO movies (movie_title, year, director, file_name, mime_type, movie_type, publish, featured) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)",
             (
                 movie_title,
                 year,
@@ -42,8 +46,10 @@ def add_movie(movie_title, year, director, file_name, movie_type, publish, featu
             ),
         )
         db.commit()
+        cur.close()
+        db.close()
     except db.IntegrityError:
-        error = f"Failed:{movie_title} is already added to the library."
+        error = f"Failed:{movie_title} could not be added to the library."
         result = 1
     else:
         error = f"{movie_title} added to libary."
@@ -52,11 +58,11 @@ def add_movie(movie_title, year, director, file_name, movie_type, publish, featu
 
 
 def delete_actor(actor_id, name):
-    db = get_db()
+    db, cur = get_db()
     result = 0
     error = None
     try:
-        db.execute("DELETE FROM actors WHERE id=?", (actor_id,))
+        cur.execute("DELETE FROM actors WHERE id=%s", (actor_id,))
         db.commit()
     except db.IntegrityError:
         error = f"Fail: Actor {name} could not be deleted."
@@ -68,81 +74,86 @@ def delete_actor(actor_id, name):
 
 def get_actors_for_movie(movie_id):
 
-    db = get_db()
-
-    details_actors = db.execute(
-        "SELECT id, name, character, movie_id FROM actors WHERE movie_id =  :movie_id",
-        {"movie_id": movie_id},
-    ).fetchall()
+    db, cur = get_db()
+    cur.execute(
+        "SELECT id, name, character, movie_id FROM actors WHERE movie_id = %s",
+        (movie_id,)
+    )
+    details_actors = cur.fetchall()
     return details_actors
 
 
 def get_file(movie_id):
 
-    db = get_db()
-    details_movies = db.execute(
-        "SELECT id, file_name, movie_type FROM movies where id = :movie_id",
-        {"movie_id": movie_id},
-    ).fetchone()
+    db, cur = get_db()
+    cur.execute(
+        "SELECT id, file_name, movie_type FROM movies where id =  %s",
+        (movie_id,)
+    )
+    details_movies = cur.fetchone()
     return details_movies
 
 
 def get_movie(movie_id):
 
-    db = get_db()
-    details_movies = db.execute(
-        "SELECT id, movie_title, year, director, file_name FROM movies where id = :movie_id",
-        {"movie_id": movie_id},
-    ).fetchone()
+    db, cur = get_db()
+    cur.execute(
+        "SELECT id, movie_title, year, director, file_name FROM movies where id =  %s",
+        (movie_id,)
+    )
+    details_movies = cur.fetchone()
     return details_movies
 
 
 def get_movie_with_actors(movie_id):
-    db = get_db()
+    db, cur = get_db()
 
-    details_actors = db.execute(
-        "SELECT id, name, character, movie_id FROM actors WHERE movie_id = :movie_id",
-        {"movie_id": movie_id},
-    ).fetchall()
+    cur.execute(
+        "SELECT id, name, character, movie_id FROM actors WHERE movie_id =  %s",
+        (movie_id,)
+    )
+    details_actors = cur.fetchall()
 
-    details_movies = db.execute(
-        "SELECT id, movie_title, year, director, movie_type, location, description FROM movies where id = :movie_id",
-        {"movie_id": movie_id},
-    ).fetchone()
+    cur.execute(
+        "SELECT id, movie_title, year, director, movie_type, location, description FROM movies where id =  %s",
+        (movie_id,)
+    )
+    details_movies = cur.fetchone()
 
     return details_movies, details_actors
 
 
 def get_portfolio():
-    db = get_db()
-    cur = db.cursor()
-    details_movies = cur.execute(
+    db, cur = get_db()
+    cur.execute(
         """SELECT movie_title, file_name, location, description FROM movies where publish = '1' AND featured = '0' ORDER by year;"""
-    ).fetchall()
+    )
+    details_movies = cur.fetchall()
 
-    f_movies = cur.execute(
+    cur.execute(
         """SELECT movie_title, file_name, location, description FROM movies where publish = '1' AND featured = '1';"""
-    ).fetchall()
+    )
+    f_movies = cur.fetchall()
 
     return details_movies, f_movies
 
 
 def list_all_movies():
-    db = get_db()
-    cur = db.cursor()
-    media = cur.execute(
-        """SELECT id, movie_title, year, director FROM movies"""
-    ).fetchall()
+    db, cur = get_db()
+    cur.execute(
+        """SELECT id, movie_title, year, director FROM movies ORDER BY id"""
+    )
+    media = cur.fetchall()
     return media
 
 
 def update_actor(name, character, id):
-    db = get_db()
+    db, cur = get_db()
     result = 0
     error = None
     try:
-        db.execute(
-            "UPDATE actors SET name=?, character=? WHERE id = ?",
+        cur.execute(
+            "UPDATE actors SET name=%s, character=%s WHERE id = %s",
             (name, character, id),
         )
         db.commit()
@@ -166,12 +177,12 @@ def update_movie(
     publish,
     featured,
 ):
-    db = get_db()
+    db, cur = get_db()
     result = 0
     error = None
     try:
-        db.execute(
-            "UPDATE movies SET movie_title=?, year=?, director=?, movie_type=?, location=?, description=?, publish=?, featured=? WHERE id=?",
+        cur.execute(
+            "UPDATE movies SET movie_title=%s, year=%s, director=%s, movie_type=%s, location=%s, description=%s, publish=%s, featured=%s WHERE id=%s",
             (
                 movie_title,
                 year,
@@ -206,12 +217,12 @@ def update_movie_with_actors(
     character,
     actor,
 ):
-    db = get_db()
+    db, cur = get_db()
     result = 0
     error = None
     try:
-        db.execute(
-            "UPDATE actors SET name=?, character=?, movie_id=? WHERE id = ?",
+        cur.execute(
+            "UPDATE actors SET name=%s, character=%s, movie_id=%s WHERE id = %s",
             (name, character, id, actor),
         )
     except db.IntegrityError:
@@ -222,8 +233,8 @@ def update_movie_with_actors(
         error = f"{movie_title} and its Actors updated successfully."
 
     try:
-        db.execute(
-            "UPDATE movies SET movie_title=?, year=?, director=?, movie_type=?, publish=?, featured=? WHERE id=?",
+        cur.execute(
+            "UPDATE movies SET movie_title=%s, year=%s, director=%s, movie_type=%s, publish=%s, featured=%s WHERE id=%s",
             (movie_title, year, director, movie_type, publish, featured, id),
         )
     except db.IntegrityError:

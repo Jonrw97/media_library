@@ -32,7 +32,7 @@ from wtforms.validators import DataRequired
 import plex.file_media_service as file_media_service
 import plex.movies_das as movies_das
 from plex.auth import login_required
-from plex.db import get_db
+from plex.init_db import get_db
 
 bp = Blueprint("movies", __name__)
 

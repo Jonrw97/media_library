@@ -14,7 +14,7 @@ def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        db = get_db()
+        db, cur = get_db()
         error = None
 
         if not username:
@@ -24,10 +24,9 @@ def register():
 
         if error is None:
             try:
-                db.execute(
-                    "INSERT INTO user (username, password) VALUES (?, ?)",
-                    (username, generate_password_hash(password)),
-                )
+                cur.execute(
+                    "INSERT INTO user_account (user_name, password) VALUES (%s, %s);",
+                    (username, generate_password_hash(password)))
                 db.commit()
             except db.IntegrityError:
                 error = f"User {username} is already registered."
@@ -42,20 +41,21 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        db = get_db()
+        db, cur = get_db()
         error = None
-        user = db.execute(
-            'SELECT * FROM user WHERE username = ?', (username,)
-        ).fetchone()
+        cur.execute(
+            'SELECT * FROM user_account WHERE user_name = %s', (username,)
+        )
+        user = cur.fetchone()
 
         if user is None:
             error = 'Incorrect username.'
-        elif not check_password_hash(user['password'], password):
+        elif not check_password_hash(user[2], password):
             error = 'Incorrect password'
 
         if error is None:
             session.clear()
-            session['user_id'] = user['id']
+            session['user_id'] = user[0]
             return redirect(url_for('library'))
 
         flash(error)
@@ -66,13 +66,14 @@ def login():
 @bp.before_app_request
 def load_logged_in_user():
     user_id = session.get('user_id')
-
+    db, cur = get_db()
     if user_id is None:
         g.user = None
     else:
-        g.user = get_db().execute(
-            'SELECT * FROM user WHERE id = ?', (user_id,)
-        ).fetchone()
+        cur.execute(
+            'SELECT * FROM user_account WHERE id = %s', (user_id,)
+        )
+        g.user = cur.fetchone()
 
 
 def login_required(view):
