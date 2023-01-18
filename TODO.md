@@ -55,14 +55,14 @@ https://miro.com/app/board/uXjVOFF2cpg=/?utm_source=notification&utm_medium=emai
 - [x] upload video to (Binary Large OBject) storage !Richard's AWS Account!
 - [x] fitler the fields by movie type(personal: title, released at, description, location other: all fields)
 - [x] landing show one featured video and order others by date filmed
-- [ ] video upload change to url
+- [x] video upload change to url
 - [ ] add enum for hosting type
 - [x] add flag coloum for publishing
 - [ ] Flask tests, setup a movie with a fixture, render the edit page, update the movie title check title correct
 - [ ] Flask test, go to the edit page for the same movie, leave title blank save check validation error
 - [ ] acces admin edit page without being logged in
 - [ ] run tests auto on push(ci/cd)
-- [ ] use postgres instead of sqlite
+- [x] use postgres instead of sqlite
 
 ## PHASE Tags And Searching with ORM
 
